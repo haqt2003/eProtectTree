@@ -1,11 +1,12 @@
 <template>
   <div
     id="app"
+    ref="app"
     class="h-[100vh] w-[100vw] overflow-auto bg-cover lg:bg-cennter text-white"
   >
     <div class="lg:hidden mx-auto mt-10 text-center">
       <span class="font-semibold">eProtectTree</span>
-      <span class="block mt-1">Th 6, 28 thg 1</span>
+      <span class="block mt-1">{{ formattedDate }}</span>
     </div>
     <div
       class="mx-auto flex-wrap mt-8 lg:mt-0 w-full lg:max-h-[730px] max-w-[1680px] px-5 lg:px-[120px] lg:pt-[55px] lg:pb-[76px] lg:h-full flex lg:justify-between items-center"
@@ -16,10 +17,10 @@
         <div
           class="rounded-2xl relative px-5 py-5 lg:px-0 lg:py-0 [background:linear-gradient(168.26deg,_rgba(255,_255,_255,_0.3),_rgba(255,_255,_255,_0.15))] shadow-[0px_20px_40px_rgba(0,_0,_0,_0.1)] [backdrop-filter:blur(20px)] border-[1px] border-solid border-gray lg:rounded-none lg:shadow-none lg:bg-none lg:border-none lg:backdrop-opacity-0 lg:blur-none lg:border-0"
         >
-          <div class="flex justify-between items-center">
+          <div class="flex justify-between lg:justify-start items-center">
             <div class="flex items-center lg:block">
               <img
-                src="../assets/images/flower.svg"
+                src="../assets/images/rose.svg"
                 alt=""
                 class="w-[20px] lg:w-[75px]"
               />
@@ -27,7 +28,7 @@
                 >Hoa hồng</span
               >
             </div>
-            <div class="">
+            <div class="lg:ml-[18px]">
               <span class="font-bold text-[22px] hidden lg:block"
                 >Hoa hồng</span
               >
@@ -185,7 +186,7 @@
               class="w-full relative h-9 mt-2 border-[2px] border-white lg:mt-[6px] rounded-[10px]"
             >
               <div
-                class="absolute lg:h-[35px] h-9 lg:mt-0 w-[70%] flex items-center justify-end px-4 top-1/2 -translate-y-1/2 bg-white text-[#B4B48D] rounded-[9px] mr-3"
+                class="absolute lg:h-[35px] h-9 lg:mt-0 w-[70%] flex items-center justify-end px-4 top-1/2 -translate-y-1/2 bg-white text-[#B5B5AE] rounded-[9px] mr-3"
               >
                 35%
               </div>
@@ -244,18 +245,140 @@
           class="absolute hidden lg:block h-[0.5px] w-[140px] bottom-[125px] left-1/2 -translate-x-1/2 bg-white opacity-60"
         ></div>
         <button
+          @click="onToggleModal()"
           class="lg:absolute w-full lg:mt-0 mt-8 h-[56px] rounded-[20px] font-semibold lg:bottom-14 lg:font-semibold tracking-wide [background:linear-gradient(168.26deg,_rgba(255,_255,_255,_0.3),_rgba(255,_255,_255,_0.15))] shadow-[0px_20px_40px_rgba(0,_0,_0,_0.1)] [backdrop-filter:blur(20px)] border-solid border-gray lg:shadow-none lg:bg-none lg:backdrop-opacity-0 lg:blur-none lg:text-[14px] flex items-center justify-center lg:right-[50px] lg:left-[50px] lg:h-12 lg:w-[198px] border-[0.5px] lg:rounded-[12px] lg:border-white lg:hover:bg-white lg:hover:text-[#818451] cursor-pointer transition"
         >
           XEM CÁCH KHẮC PHỤC
         </button>
       </div>
     </div>
+    <div
+      v-if="isOpenModal"
+      class="fixed z-10 top-0 left-0 w-full h-full bg-[rgba(0,0,0,0.5)] modal"
+    >
+      <div
+        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[353px] px-7 pt-14 pb-8 lg:px-[60px] lg:py-[60px] overflow-hidden rounded-[20px] lg:rounded-[24px] bg-[#F8F8F8] text-[#1F1F1F] lg:h-[500px] lg:w-[750px]"
+      >
+        <img
+          @click="onToggleModal()"
+          src="../assets/images/close.svg"
+          alt=""
+          class="absolute top-6 right-6 w-7 cursor-pointer"
+        />
+        <div class="">
+          <h2 class="text-center font-bold text-[24px]">CÁCH KHẮC PHỤC</h2>
+          <div class="mt-3 lg:mt-5 overflow-y-scroll h-[335px]">
+            <p class="text-justify lg:pr-4 flex flex-wrap justify-between">
+              Lorem ipsum dolor sit amet consectetur. Cras venenatis imperdiet
+              malesuada nunc dui enim lacus faucibus eget. Lectus suscipit erat
+              ut lectus aliquam pellentesque. Est iaculis varius tempor nec ac.
+              Malesuada ac enim elit vel phasellus tellus sit malesuada varius.
+              Enim ultricies mollis imperdiet platea ac nibh. Suspendisse netus
+              volutpat sem purus. Viverra lectus placerat interdum nunc bibendum
+              eget purus purus platea. Sed sed diam vestibulum magna. Phasellus
+              tempor augue sed faucibus diam cras cursus ullamcorper.Lorem ipsum
+              dolor sit amet consectetur. Cras venenatis imperdiet malesuada
+              nunc dui enim lacus faucibus eget. Lectus suscipit erat ut lectus
+              aliquam pellentesque. Est iaculis varius tempor nec ac. Malesuada
+              ac enim elit vel phasellus tellus sit malesuada varius. Enim
+              ultricies mollis imperdiet platea ac nibh. Suspendisse nunc dui
+              enim lacus faucibus eget. Lectus suscipit erat ut lectus aliquam
+              pellentesque. Est iaculis varius tempor nec ac. Malesuada ac enim
+              elit vel phasellus tellus sit malesuada varius. Enim ultricies
+              mollis imperdiet platea ac nibh. Suspendis
+              <img
+                src="../assets/images/img-test.svg"
+                alt=""
+                class="my-2 w-full lg:w-[49%] lg:h-[210px]"
+              />
+              <img
+                src="../assets/images/img-test.svg"
+                alt=""
+                class="my-2 w-full lg:w-[49%] lg:h-[210px]"
+              />
+              <iframe
+                class="my-2 w-full lg:w-[605px] lg:h-[315px]"
+                src="https://www.youtube.com/embed/qYX0ACKOeqQ?si=PxcxlYo_D5F0jaQk"
+                title="YouTube video player"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen
+              ></iframe>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+import { ref, onMounted } from "vue";
 export default {
   name: "HomeView",
+  setup() {
+    const app = ref(null);
+    const currentTime = ref("");
+    const formattedDate = ref("");
+    const dayNightStatus = ref("");
+    const isOpenModal = ref(false);
+
+    const updateRealTime = () => {
+      const time = new Date();
+      const hours = time.getHours();
+
+      if (hours >= 6 && hours < 18) {
+        dayNightStatus.value = "Day";
+      } else {
+        dayNightStatus.value = "Night";
+      }
+
+      updateBg();
+
+      const days = ["CN", "Th 2", "Th 3", "Th 4", "Th 5", "Th 6", "Th 7"];
+      const dayOfWeek = days[time.getDay()];
+      const date = time.getDate();
+      const month = time.getMonth() + 1; // Lưu ý: Tháng bắt đầu từ 0
+      formattedDate.value = `${dayOfWeek.slice(0, 3)}, ${date} thg ${month}`;
+    };
+
+    function updateBg() {
+      const imagePath =
+        dayNightStatus.value === "Day"
+          ? require("@/assets/images/bg1.svg")
+          : require("@/assets/images/bg2.svg");
+      if (dayNightStatus.value === "Day") {
+        app.value.setAttribute(
+          "style",
+          `background-image: url("${imagePath}")`
+        );
+      } else {
+        app.value.setAttribute(
+          "style",
+          `background-image: url("${imagePath}")`
+        );
+      }
+    }
+
+    function onToggleModal() {
+      isOpenModal.value = !isOpenModal.value;
+    }
+
+    onMounted(() => {
+      setInterval(updateRealTime, 60000);
+      updateRealTime();
+    });
+
+    return {
+      app,
+      currentTime,
+      dayNightStatus,
+      formattedDate,
+      isOpenModal,
+      onToggleModal,
+      updateBg,
+    };
+  },
 };
 </script>
 
