@@ -113,6 +113,9 @@
               />
             </div>
           </div>
+          <Swiper>
+            <SwiperSlide></SwiperSlide>
+          </Swiper>
           <div class="flex gap-5 lg:gap-12 justify-center mt-5">
             <div
               class="w-3 h-3 lg:w-4 lg:h-4 bg-white rounded-full cursor-pointer"
@@ -186,10 +189,16 @@
               class="w-full relative h-9 mt-2 border-[2px] border-white lg:mt-[6px] rounded-[10px]"
             >
               <div
-                class="absolute lg:h-[35px] h-9 lg:mt-0 w-[70%] flex items-center justify-end px-4 top-1/2 -translate-y-1/2 bg-white text-[#B5B5AE] rounded-[9px] mr-3"
+                class="absolute lg:h-[35px] transition w-[70%] h-9 lg:mt-0 flex items-center justify-end top-1/2 -translate-y-1/2 bg-white rounded-[9px] mr-3"
+              ></div>
+              <span
+                :class="{
+                  'text-day': dayNightStatus === 'Day',
+                  'text-night': dayNightStatus === 'Night',
+                }"
+                class="block absolute top-1/2 -translate-y-1/2 left-4"
+                >70%</span
               >
-                35%
-              </div>
             </div>
           </div>
           <div class="mt-5">
@@ -198,10 +207,12 @@
               class="w-full relative h-9 mt-2 border-[2px] border-white lg:mt-[6px] rounded-[10px]"
             >
               <div
-                class="absolute lg:h-[35px] h-9 lg:mt-0 w-[70%] flex items-center justify-end px-4 top-1/2 -translate-y-1/2 bg-white text-[#B4B48D] rounded-[9px] mr-3"
+                class="absolute lg:h-[35px] transition h-9 lg:mt-0 flex items-center justify-end top-1/2 -translate-y-1/2 bg-white rounded-[9px] mr-3"
+              ></div>
+              <span
+                class="block absolute top-1/2 -translate-y-1/2 left-4 text-white"
+                >0%</span
               >
-                35%
-              </div>
             </div>
           </div>
           <div class="mt-5">
@@ -210,10 +221,12 @@
               class="w-full relative h-9 mt-2 border-[2px] border-white lg:mt-[6px] rounded-[10px]"
             >
               <div
-                class="absolute lg:h-[35px] h-9 lg:mt-0 w-[70%] flex items-center justify-end px-4 top-1/2 -translate-y-1/2 bg-white text-[#B4B48D] rounded-[9px] mr-3"
+                class="absolute lg:h-[35px] transition h-9 lg:mt-0 flex items-center justify-end top-1/2 -translate-y-1/2 bg-white rounded-[9px] mr-3"
+              ></div>
+              <span
+                class="block absolute top-1/2 -translate-y-1/2 left-4 text-white"
+                >0%</span
               >
-                35%
-              </div>
             </div>
           </div>
           <div class="mt-5">
@@ -222,10 +235,12 @@
               class="w-full relative h-9 mt-2 border-[2px] border-white lg:mt-[6px] rounded-[10px]"
             >
               <div
-                class="absolute lg:h-[35px] h-9 lg:mt-0 w-[70%] flex items-center justify-end px-4 top-1/2 -translate-y-1/2 bg-white text-[#B4B48D] rounded-[9px] mr-3"
+                class="absolute lg:h-[35px] transition h-9 lg:mt-0 flex items-center justify-end top-1/2 -translate-y-1/2 bg-white rounded-[9px] mr-3"
+              ></div>
+              <span
+                class="block absolute top-1/2 -translate-y-1/2 left-4 text-white"
+                >0%</span
               >
-                35%
-              </div>
             </div>
           </div>
           <div class="mt-5">
@@ -234,10 +249,12 @@
               class="w-full relative h-9 mt-2 border-[2px] border-white lg:mt-[6px] rounded-[10px]"
             >
               <div
-                class="absolute lg:h-[35px] h-9 lg:mt-0 w-[70%] flex items-center justify-end px-4 top-1/2 -translate-y-1/2 bg-white text-[#B4B48D] rounded-[9px] mr-3"
+                class="absolute lg:h-[35px] transition h-9 lg:mt-0 flex items-center justify-end top-1/2 -translate-y-1/2 bg-white rounded-[9px] mr-3"
+              ></div>
+              <span
+                class="block absolute top-1/2 -translate-y-1/2 left-4 text-white"
+                >0%</span
               >
-                35%
-              </div>
             </div>
           </div>
         </div>
@@ -246,7 +263,11 @@
         ></div>
         <button
           @click="onToggleModal()"
-          class="lg:absolute w-full lg:mt-0 mt-8 h-[56px] rounded-[20px] font-semibold lg:bottom-14 lg:font-semibold tracking-wide [background:linear-gradient(168.26deg,_rgba(255,_255,_255,_0.3),_rgba(255,_255,_255,_0.15))] shadow-[0px_20px_40px_rgba(0,_0,_0,_0.1)] [backdrop-filter:blur(20px)] border-solid border-gray lg:shadow-none lg:bg-none lg:backdrop-opacity-0 lg:blur-none lg:text-[14px] flex items-center justify-center lg:right-[50px] lg:left-[50px] lg:h-12 lg:w-[198px] border-[0.5px] lg:rounded-[12px] lg:border-white lg:hover:bg-white lg:hover:text-[#818451] cursor-pointer transition"
+          :class="{
+            'lg:hover:text-day': dayNightStatus === 'Day',
+            'lg:hover:text-night': dayNightStatus === 'Night',
+          }"
+          class="lg:absolute w-full lg:mt-0 mt-8 h-[56px] rounded-[20px] font-semibold lg:bottom-14 lg:font-semibold tracking-wide [background:linear-gradient(168.26deg,_rgba(255,_255,_255,_0.3),_rgba(255,_255,_255,_0.15))] shadow-[0px_20px_40px_rgba(0,_0,_0,_0.1)] [backdrop-filter:blur(20px)] border-solid border-gray lg:shadow-none lg:bg-none lg:backdrop-opacity-0 lg:blur-none lg:text-[14px] flex items-center justify-center lg:right-[50px] lg:left-[50px] lg:h-12 lg:w-[198px] border-[0.5px] lg:rounded-[12px] lg:border-white lg:hover:bg-white cursor-pointer transition"
         >
           XEM CÁCH KHẮC PHỤC
         </button>
@@ -313,7 +334,9 @@
 </template>
 
 <script>
-import { ref, onMounted } from "vue";
+import { ref, reactive, onMounted } from "vue";
+import { Swiper, SwiperSlide } from "swiper/vue";
+import "swiper/css";
 export default {
   name: "HomeView",
   setup() {
@@ -323,7 +346,9 @@ export default {
     const dayNightStatus = ref("");
     const isOpenModal = ref(false);
 
-    const updateRealTime = () => {
+    const photos = reactive(["cam.svg", "cam.svg", "cam.svg", "cam.svg"]);
+
+    function updateRealTime() {
       const time = new Date();
       const hours = time.getHours();
 
@@ -340,7 +365,7 @@ export default {
       const date = time.getDate();
       const month = time.getMonth() + 1; // Lưu ý: Tháng bắt đầu từ 0
       formattedDate.value = `${dayOfWeek.slice(0, 3)}, ${date} thg ${month}`;
-    };
+    }
 
     function updateBg() {
       const imagePath =
@@ -348,15 +373,19 @@ export default {
           ? require("@/assets/images/bg1.svg")
           : require("@/assets/images/bg2.svg");
       if (dayNightStatus.value === "Day") {
-        app.value.setAttribute(
-          "style",
-          `background-image: url("${imagePath}")`
-        );
+        if (app.value) {
+          app.value.setAttribute(
+            "style",
+            `background-image: url("${imagePath}")`
+          );
+        }
       } else {
-        app.value.setAttribute(
-          "style",
-          `background-image: url("${imagePath}")`
-        );
+        if (app.value) {
+          app.value.setAttribute(
+            "style",
+            `background-image: url("${imagePath}")`
+          );
+        }
       }
     }
 
@@ -375,15 +404,10 @@ export default {
       dayNightStatus,
       formattedDate,
       isOpenModal,
+      photos,
       onToggleModal,
       updateBg,
     };
   },
 };
 </script>
-
-<style scoped lang="css">
-#app {
-  background-image: url("../assets/images/bg1.svg");
-}
-</style>
