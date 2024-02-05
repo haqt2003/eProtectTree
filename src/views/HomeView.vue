@@ -88,10 +88,10 @@
         </div>
       </div>
       <div
-        class="camera-tab order-1 lg:order-2 w-full h-auto lg:w-[50%] lg:h-full rounded-2xl flex flex-col justify-between"
+        class="camera-tab overflow-hidden order-1 lg:order-2 w-full h-auto lg:w-[50%] lg:h-full rounded-2xl flex flex-col justify-between"
       >
         <div class="">
-          <div
+          <!-- <div
             class="h-[242px] lg:h-[420px] w-full rounded-2xl bg-black relative"
           >
             <div
@@ -112,26 +112,36 @@
                 class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
               />
             </div>
-          </div>
-          <Swiper>
-            <SwiperSlide></SwiperSlide>
-          </Swiper>
-          <div class="flex gap-5 lg:gap-12 justify-center mt-5">
+          </div> -->
+          <div class="relative">
             <div
-              class="w-3 h-3 lg:w-4 lg:h-4 bg-white rounded-full cursor-pointer"
-            ></div>
+              class="swiper-container cursor-pointer overflow-hidden rounded-2xl"
+            >
+              <div class="swiper-wrapper">
+                <div class="swiper-slide" v-for="photo in photos" :key="photo">
+                  <div
+                    class="h-[242px] lg:h-[420px] w-full rounded-2xl bg-black relative"
+                  ></div>
+                </div>
+              </div>
+            </div>
             <div
-              class="w-3 h-3 lg:w-4 lg:h-4 bg-white rounded-full cursor-pointer opacity-40"
+              class="swiper-pagination flex gap-5 lg:gap-12 justify-center absolute left-1/2 -translate-x-1/2"
             ></div>
-            <div
-              class="w-3 h-3 lg:w-4 lg:h-4 bg-white rounded-full cursor-pointer opacity-40"
-            ></div>
-            <div
-              class="w-3 h-3 lg:w-4 lg:h-4 bg-white rounded-full cursor-pointer opacity-40"
-            ></div>
-            <div
-              class="w-3 h-3 lg:w-4 lg:h-4 bg-white rounded-full cursor-pointer opacity-40"
-            ></div>
+            <div class="swiper-button-next">
+              <img
+                src="../assets/images/arrow-right.svg"
+                alt=""
+                class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+              />
+            </div>
+            <div class="swiper-button-prev">
+              <img
+                src="../assets/images/arrow-left.svg"
+                alt=""
+                class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+              />
+            </div>
           </div>
         </div>
         <div
@@ -335,8 +345,8 @@
 
 <script>
 import { ref, reactive, onMounted } from "vue";
-import { Swiper, SwiperSlide } from "swiper/vue";
-import "swiper/css";
+import Swiper from "swiper/bundle";
+import "swiper/swiper-bundle.css";
 export default {
   name: "HomeView",
   setup() {
@@ -346,7 +356,34 @@ export default {
     const dayNightStatus = ref("");
     const isOpenModal = ref(false);
 
-    const photos = reactive(["cam.svg", "cam.svg", "cam.svg", "cam.svg"]);
+    const photos = reactive([
+      "../assets/images/cam.svg",
+      "../assets/images/cam.svg",
+      "../assets/images/cam.svg",
+    ]);
+
+    const onSwiper = (swiper) => {
+      console.log(swiper);
+    };
+    const onSlideChange = () => {
+      console.log("slide change");
+    };
+
+    function initSwiper() {
+      new Swiper(".swiper-container", {
+        slidesPerView: 1,
+        spaceBetween: 15,
+        loop: true,
+        pagination: {
+          el: ".swiper-pagination",
+          clickable: true,
+        },
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        },
+      });
+    }
 
     function updateRealTime() {
       const time = new Date();
@@ -394,6 +431,7 @@ export default {
     }
 
     onMounted(() => {
+      initSwiper();
       setInterval(updateRealTime, 60000);
       updateRealTime();
     });
@@ -405,9 +443,107 @@ export default {
       formattedDate,
       isOpenModal,
       photos,
+      initSwiper,
       onToggleModal,
+      onSwiper,
+      onSlideChange,
       updateBg,
     };
   },
 };
 </script>
+
+<style lang="css">
+.swiper-pagination {
+  bottom: -40px !important;
+}
+
+.swiper-pagination-bullet {
+  width: 16px;
+  height: 16px;
+  background-color: #ffffff;
+  opacity: 0.4;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Quy tắc CSS cho bullet active */
+.swiper-pagination-bullet-active {
+  background-color: #fff;
+  opacity: 0.8;
+}
+
+.swiper-button-prev {
+  width: 70px;
+  height: 70px;
+  background: linear-gradient(
+    168.26deg,
+    rgba(255, 255, 255, 0.3),
+    rgba(255, 255, 255, 0.15)
+  );
+  box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(20px);
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-30%);
+  left: -10px;
+  z-index: 10;
+  border-radius: 50%;
+}
+
+.swiper-button-next {
+  width: 70px;
+  height: 70px;
+  background: linear-gradient(
+    168.26deg,
+    rgba(255, 255, 255, 0.3),
+    rgba(255, 255, 255, 0.15)
+  );
+  box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(20px);
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-30%);
+  right: -20px;
+  border-radius: 50%;
+  z-index: 10;
+}
+
+.swiper-button-prev::after,
+.swiper-button-next::after {
+  display: none;
+}
+
+@media only screen and (max-width: 1023px) {
+  .swiper-pagination {
+    bottom: 16px !important;
+  }
+
+  .swiper-pagination-bullet {
+    width: 12px;
+    height: 12px;
+    background-color: #ffffff;
+    opacity: 0.4;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  /* Quy tắc CSS cho bullet active */
+  .swiper-pagination-bullet-active {
+    background-color: #fff;
+    opacity: 0.8;
+  }
+
+  .swiper-button-prev {
+    display: none;
+  }
+
+  .swiper-button-next {
+    display: none;
+  }
+}
+</style>
