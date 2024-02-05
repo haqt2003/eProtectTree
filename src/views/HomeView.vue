@@ -9,7 +9,7 @@
       <span class="block mt-1">{{ formattedDate }}</span>
     </div>
     <div
-      class="mx-auto flex-wrap mt-8 lg:mt-0 w-full lg:max-h-[730px] max-w-[1680px] px-5 lg:px-[120px] lg:pt-[55px] lg:pb-[76px] lg:h-full flex lg:justify-between items-center"
+      class="mx-auto relative flex-wrap mt-8 lg:mt-0 w-full lg:max-h-[730px] max-w-[1680px] px-5 lg:px-[120px] lg:pt-[55px] lg:pb-[76px] lg:h-full flex lg:justify-between items-center"
     >
       <div
         class="information-tab mt-8 lg:mt-0 lg:relative order-2 lg:order-1 lg:px-[50px] lg:py-12 w-full h-[180px] lg:w-[23%] lg:h-full lg:rounded-2xl lg:[background:linear-gradient(168.26deg,_rgba(255,_255,_255,_0.3),_rgba(255,_255,_255,_0.15))] lg:shadow-[0px_20px_40px_rgba(0,_0,_0,_0.1)] lg:[backdrop-filter:blur(20px)] lg:border-[1px] lg:border-solid lg:border-gray"
@@ -91,28 +91,6 @@
         class="camera-tab overflow-hidden order-1 lg:order-2 w-full h-auto lg:w-[50%] lg:h-full rounded-2xl flex flex-col justify-between"
       >
         <div class="">
-          <!-- <div
-            class="h-[242px] lg:h-[420px] w-full rounded-2xl bg-black relative"
-          >
-            <div
-              class="hidden lg:block w-[70px] h-[70px] [background:linear-gradient(168.26deg,_rgba(255,_255,_255,_0.3),_rgba(255,_255,_255,_0.15))] shadow-[0px_20px_40px_rgba(0,_0,_0,_0.1)] [backdrop-filter:blur(20px)] cursor-pointer absolute top-1/2 -translate-y-1/2 -left-8 rounded-full"
-            >
-              <img
-                src="../assets/images/arrow-left.svg"
-                alt=""
-                class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-              />
-            </div>
-            <div
-              class="hidden lg:block w-[70px] h-[70px] [background:linear-gradient(168.26deg,_rgba(255,_255,_255,_0.3),_rgba(255,_255,_255,_0.15))] shadow-[0px_20px_40px_rgba(0,_0,_0,_0.1)] [backdrop-filter:blur(20px)] cursor-pointer absolute top-1/2 -translate-y-1/2 -right-8 z-10 rounded-full"
-            >
-              <img
-                src="../assets/images/arrow-right.svg"
-                alt=""
-                class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-              />
-            </div>
-          </div> -->
           <div class="relative">
             <div
               class="swiper-container cursor-pointer overflow-hidden rounded-2xl"
@@ -123,25 +101,37 @@
                     class="h-[242px] lg:h-[420px] w-full rounded-2xl bg-black relative"
                   ></div>
                 </div>
+                <div class="swiper-slide">
+                  <div
+                    class="flex justify-between lg:h-[420px] flex-wrap items-center w-full"
+                  >
+                    <div
+                      v-for="(photo, index) in photos"
+                      :key="index"
+                      :class="{ 'mt-[10px] lg:mt-2': index >= 2 }"
+                      class="h-[116px] lg:h-[205px] w-[48.4%] lg:w-[49.1%] rounded-2xl bg-black relative"
+                    ></div>
+                  </div>
+                </div>
               </div>
             </div>
             <div
               class="swiper-pagination flex gap-5 lg:gap-12 justify-center absolute left-1/2 -translate-x-1/2"
             ></div>
-            <div class="swiper-button-next">
-              <img
-                src="../assets/images/arrow-right.svg"
-                alt=""
-                class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-              />
-            </div>
-            <div class="swiper-button-prev">
-              <img
-                src="../assets/images/arrow-left.svg"
-                alt=""
-                class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-              />
-            </div>
+          </div>
+          <div class="swiper-button-next">
+            <img
+              src="../assets/images/arrow-right.svg"
+              alt=""
+              class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+            />
+          </div>
+          <div class="swiper-button-prev">
+            <img
+              src="../assets/images/arrow-left.svg"
+              alt=""
+              class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+            />
           </div>
         </div>
         <div
@@ -360,14 +350,8 @@ export default {
       "../assets/images/cam.svg",
       "../assets/images/cam.svg",
       "../assets/images/cam.svg",
+      "../assets/images/cam.svg",
     ]);
-
-    const onSwiper = (swiper) => {
-      console.log(swiper);
-    };
-    const onSlideChange = () => {
-      console.log("slide change");
-    };
 
     function initSwiper() {
       new Swiper(".swiper-container", {
@@ -401,7 +385,7 @@ export default {
       const dayOfWeek = days[time.getDay()];
       const date = time.getDate();
       const month = time.getMonth() + 1; // Lưu ý: Tháng bắt đầu từ 0
-      formattedDate.value = `${dayOfWeek.slice(0, 3)}, ${date} thg ${month}`;
+      formattedDate.value = `${dayOfWeek.slice(0, 4)}, ${date} thg ${month}`;
     }
 
     function updateBg() {
@@ -445,8 +429,6 @@ export default {
       photos,
       initSwiper,
       onToggleModal,
-      onSwiper,
-      onSlideChange,
       updateBg,
     };
   },
@@ -468,7 +450,6 @@ export default {
   transition: background-color 0.3s ease;
 }
 
-/* Quy tắc CSS cho bullet active */
 .swiper-pagination-bullet-active {
   background-color: #fff;
   opacity: 0.8;
@@ -487,8 +468,8 @@ export default {
   cursor: pointer;
   position: absolute;
   top: 50%;
-  transform: translateY(-30%);
-  left: -10px;
+  transform: translateY(-160%);
+  left: 405px;
   z-index: 10;
   border-radius: 50%;
 }
@@ -506,8 +487,8 @@ export default {
   cursor: pointer;
   position: absolute;
   top: 50%;
-  transform: translateY(-30%);
-  right: -20px;
+  transform: translateY(-160%);
+  right: 405px;
   border-radius: 50%;
   z-index: 10;
 }
@@ -515,6 +496,15 @@ export default {
 .swiper-button-prev::after,
 .swiper-button-next::after {
   display: none;
+}
+
+.swiper-button-prev:hover,
+.swiper-button-next:hover {
+  background: linear-gradient(
+    168.26deg,
+    rgba(255, 255, 255, 0.35),
+    rgba(255, 255, 255, 0.2)
+  );
 }
 
 @media only screen and (max-width: 1023px) {
