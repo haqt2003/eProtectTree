@@ -50,37 +50,43 @@
           class="flex justify-between mt-8 lg:mt-0 px-[30px] py-[40px] lg:px-0 lg:py-0 items-center rounded-2xl [background:linear-gradient(168.26deg,_rgba(255,_255,_255,_0.3),_rgba(255,_255,_255,_0.15))] shadow-[0px_20px_40px_rgba(0,_0,_0,_0.1)] [backdrop-filter:blur(20px)] border-[1px] border-solid border-gray lg:rounded-none lg:shadow-none lg:bg-none lg:border-none lg:backdrop-opacity-0 lg:blur-none lg:border-0 lg:absolute lg:bottom-14 flex-wrap lg:right-[50px] lg:left-[50px]"
         >
           <div
-            class="flex flex-col lg:flex-row w-[30%] lg:w-auto items-center lg:justify-between cursor-pointer"
+            @click="onTemperatureDetails()"
+            class="flex flex-col lg:flex-row w-[30%] lg:w-auto items-center lg:justify-between cursor-pointer hover:scale-110 transition"
           >
             <img src="../assets/images/temp.svg" alt="" class="w-10 lg:w-8" />
             <span class="block mt-2 lg:mt-0 lg:ml-3 text-[14px]">15°C</span>
           </div>
           <div
-            class="flex flex-col lg:flex-row w-[30%] lg:w-auto items-center lg:justify-between cursor-pointer"
+            @click="onMoistureDetails()"
+            class="flex flex-col lg:flex-row w-[30%] lg:w-auto items-center lg:justify-between cursor-pointer hover:scale-110 transition"
           >
             <img src="../assets/images/mois.svg" alt="" class="w-10 lg:w-8" />
             <span class="block mt-2 lg:mt-0 lg:ml-3 text-[14px]">30%</span>
           </div>
           <div
-            class="flex flex-col lg:flex-row w-[30%] lg:w-auto items-center lg:justify-between cursor-pointer lg:mt-12"
+            @click="onSoidDetails()"
+            class="flex flex-col lg:flex-row w-[30%] lg:w-auto items-center lg:justify-between cursor-pointer hover:scale-110 transition lg:mt-12"
           >
             <img src="../assets/images/soil.svg" alt="" class="w-10 lg:w-8" />
             <span class="block mt-2 lg:mt-0 lg:ml-3 text-[14px]">60%</span>
           </div>
           <div
-            class="flex flex-col lg:flex-row w-[30%] lg:w-auto items-center lg:justify-between cursor-pointer mt-10 lg:mt-12"
+            @click="onLightDetails()"
+            class="flex flex-col lg:flex-row w-[30%] lg:w-auto items-center lg:justify-between cursor-pointer hover:scale-110 transition mt-10 lg:mt-12"
           >
             <img src="../assets/images/light.svg" alt="" class="w-10 lg:w-8" />
             <span class="block mt-2 lg:mt-0 lg:ml-3 text-[14px]">350</span>
           </div>
           <div
-            class="flex flex-col lg:flex-row w-[30%] lg:w-auto items-center lg:justify-between cursor-pointer mt-10 lg:mt-12"
+            @click="onCo2Details()"
+            class="flex flex-col lg:flex-row w-[30%] lg:w-auto items-center lg:justify-between cursor-pointer hover:scale-110 transition mt-10 lg:mt-12"
           >
             <img src="../assets/images/co2.svg" alt="" class="w-10 lg:w-8" />
             <span class="block mt-2 lg:mt-0 lg:ml-3 text-[14px]">400</span>
           </div>
           <div
-            class="flex flex-col lg:flex-row w-[30%] lg:w-auto items-center justify-between cursor-pointer mt-10 lg:mt-12"
+            @click="onPhDetails()"
+            class="flex flex-col lg:flex-row w-[30%] lg:w-auto items-center justify-between cursor-pointer hover:scale-110 transition mt-10 lg:mt-12"
           >
             <img src="../assets/images/ph.svg" alt="" class="w-8 lg:w-7" />
             <span class="block mt-2 lg:mt-0 lg:ml-3 text-[14px]">6,5</span>
@@ -147,39 +153,17 @@
         <div
           class="hidden relative lg:flex justify-between items-center px-10 py-7 lg:h-[100px] w-full [background:linear-gradient(168.26deg,_rgba(255,_255,_255,_0.3),_rgba(255,_255,_255,_0.15))] shadow-[0px_20px_40px_rgba(0,_0,_0,_0.1)] [backdrop-filter:blur(20px)] border-[1px] border-solid border-gray lg:rounded-2xl"
         >
-          <img
-            src="../assets/images/light.svg"
-            alt=""
-            class="w-7 cursor-pointer"
-          />
+          <img :src="`${logIconUrl}`" alt="" class="w-7 cursor-pointer" />
           <div class="flex justify-between items-center w-[88%]">
-            <div class="text-center">
-              <span class="block font-semibold">11:30</span>
-              <span class="block mt-2">28%</span>
-            </div>
-            <div class="text-center">
-              <span class="block font-semibold">11:30</span>
-              <span class="block mt-2">28%</span>
-            </div>
-            <div class="text-center">
-              <span class="block font-semibold">11:30</span>
-              <span class="block mt-2">28%</span>
-            </div>
-            <div class="text-center">
-              <span class="block font-semibold">11:30</span>
-              <span class="block mt-2">28%</span>
-            </div>
-            <div class="text-center">
-              <span class="block font-semibold">11:30</span>
-              <span class="block mt-2">28%</span>
-            </div>
-            <div class="text-center">
-              <span class="block font-semibold">11:30</span>
-              <span class="block mt-2">28%</span>
-            </div>
-            <div class="text-center">
-              <span class="block font-semibold">11:30</span>
-              <span class="block mt-2">---</span>
+            <div
+              v-for="(item, index) in logData"
+              :key="index"
+              class="text-center"
+            >
+              <span class="block font-semibold">{{ item.time }}</span>
+              <span class="block mt-2">{{
+                item.data ? item.data : "---"
+              }}</span>
             </div>
           </div>
           <div
@@ -298,7 +282,7 @@
         />
         <div class="">
           <h2 class="text-center font-bold text-[24px]">CÁCH KHẮC PHỤC</h2>
-          <div class="mt-3 lg:mt-5 overflow-y-scroll h-[335px]">
+          <div class="mt-3 lg:mt-5 overflow-y-scroll h-[335px] modal">
             <p class="text-justify lg:pr-4 flex flex-wrap justify-between">
               Lorem ipsum dolor sit amet consectetur. Cras venenatis imperdiet
               malesuada nunc dui enim lacus faucibus eget. Lectus suscipit erat
@@ -352,8 +336,9 @@ export default {
   setup() {
     const app = ref(null);
     const currentTime = ref("");
-    const formattedDate = ref("");
     const dayNightStatus = ref("");
+    const formattedDate = ref("");
+    const logIconUrl = ref(require("@/assets/images/temp.svg"));
     const isOpenModal = ref(false);
 
     const videos = reactive([
@@ -361,6 +346,37 @@ export default {
       require("@/assets/videos/video1.mp4"),
       require("@/assets/videos/video1.mp4"),
       require("@/assets/videos/video1.mp4"),
+    ]);
+
+    const logData = reactive([
+      {
+        time: "11:30",
+        data: "25%",
+      },
+      {
+        time: "11:30",
+        data: "25%",
+      },
+      {
+        time: "11:30",
+        data: "25%",
+      },
+      {
+        time: "11:30",
+        data: "25%",
+      },
+      {
+        time: "11:30",
+        data: "25%",
+      },
+      {
+        time: "11:30",
+        data: "26%",
+      },
+      {
+        time: "11:30",
+        data: "",
+      },
     ]);
 
     function initSwiper() {
@@ -424,6 +440,30 @@ export default {
       isOpenModal.value = !isOpenModal.value;
     }
 
+    function onTemperatureDetails() {
+      logIconUrl.value = require("@/assets/images/temp.svg");
+    }
+
+    function onMoistureDetails() {
+      logIconUrl.value = require("@/assets/images/mois.svg");
+    }
+
+    function onSoidDetails() {
+      logIconUrl.value = require("@/assets/images/soil.svg");
+    }
+
+    function onLightDetails() {
+      logIconUrl.value = require("@/assets/images/light.svg");
+    }
+
+    function onCo2Details() {
+      logIconUrl.value = require("@/assets/images/co2.svg");
+    }
+
+    function onPhDetails() {
+      logIconUrl.value = require("@/assets/images/ph.svg");
+    }
+
     onMounted(() => {
       initSwiper();
       setInterval(updateRealTime, 60000);
@@ -435,10 +475,18 @@ export default {
       currentTime,
       dayNightStatus,
       formattedDate,
+      logData,
+      logIconUrl,
       isOpenModal,
       videos,
       initSwiper,
       onToggleModal,
+      onTemperatureDetails,
+      onMoistureDetails,
+      onSoidDetails,
+      onLightDetails,
+      onCo2Details,
+      onPhDetails,
       updateBg,
     };
   },

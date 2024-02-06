@@ -22,25 +22,25 @@
 }
 
 @media screen and (max-width: 1023px) {
-  ::-webkit-scrollbar {
+  .modal::-webkit-scrollbar {
     display: none;
   }
 }
 
 /* width */
-::-webkit-scrollbar {
+.modal::-webkit-scrollbar {
   width: 10px;
 }
 
 /* Track */
-::-webkit-scrollbar-track {
+.modal::-webkit-scrollbar-track {
   border-radius: 6px;
   background-color: #dbdbdb;
   overflow: hidden;
 }
 
 /* Handle */
-::-webkit-scrollbar-thumb {
+.modal::-webkit-scrollbar-thumb {
   background: #ffffff;
   border-radius: 25px;
   overflow: hidden;
