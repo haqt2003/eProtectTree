@@ -96,21 +96,31 @@
               class="swiper-container cursor-pointer overflow-hidden rounded-2xl"
             >
               <div class="swiper-wrapper">
-                <div class="swiper-slide" v-for="photo in photos" :key="photo">
+                <div class="swiper-slide" v-for="video in videos" :key="video">
                   <div
-                    class="h-[242px] lg:h-[420px] w-full rounded-2xl bg-black relative"
-                  ></div>
+                    class="h-[242px] lg:h-[420px] w-full rounded-2xl relative"
+                  >
+                    <video
+                      :src="video"
+                      class="w-full h-full object-cover rounded-2xl"
+                    ></video>
+                  </div>
                 </div>
                 <div class="swiper-slide">
                   <div
                     class="flex justify-between lg:h-[420px] flex-wrap items-center w-full"
                   >
                     <div
-                      v-for="(photo, index) in photos"
+                      v-for="(video, index) in videos"
                       :key="index"
                       :class="{ 'mt-[10px] lg:mt-2': index >= 2 }"
-                      class="h-[116px] lg:h-[205px] w-[48.4%] lg:w-[49.1%] rounded-2xl bg-black relative"
-                    ></div>
+                      class="h-[116px] lg:h-[205px] w-[48.4%] lg:w-[49.1%] rounded-2xl relative"
+                    >
+                      <video
+                        :src="video"
+                        class="w-full h-full object-cover rounded-2xl"
+                      ></video>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -346,11 +356,11 @@ export default {
     const dayNightStatus = ref("");
     const isOpenModal = ref(false);
 
-    const photos = reactive([
-      "../assets/images/cam.svg",
-      "../assets/images/cam.svg",
-      "../assets/images/cam.svg",
-      "../assets/images/cam.svg",
+    const videos = reactive([
+      require("@/assets/videos/video1.mp4"),
+      require("@/assets/videos/video1.mp4"),
+      require("@/assets/videos/video1.mp4"),
+      require("@/assets/videos/video1.mp4"),
     ]);
 
     function initSwiper() {
@@ -426,7 +436,7 @@ export default {
       dayNightStatus,
       formattedDate,
       isOpenModal,
-      photos,
+      videos,
       initSwiper,
       onToggleModal,
       updateBg,
