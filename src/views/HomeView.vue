@@ -437,7 +437,9 @@ export default {
       isOpenModal.value = !isOpenModal.value;
     }
 
-    function onTemperatureDetails() {}
+    function onTemperatureDetails() {
+      logIconUrl.value = require("@/assets/images/temp.svg");
+    }
 
     function onMoistureDetails() {
       logIconUrl.value = require("@/assets/images/mois.svg");
