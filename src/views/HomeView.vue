@@ -177,77 +177,31 @@
         <div
           class="px-5 pt-6 pb-8 lg:px-0 lg:py-0 rounded-2xl [background:linear-gradient(168.26deg,_rgba(255,_255,_255,_0.3),_rgba(255,_255,_255,_0.15))] shadow-[0px_20px_40px_rgba(0,_0,_0,_0.1)] [backdrop-filter:blur(20px)] border-[1px] border-solid border-gray lg:rounded-none lg:shadow-none lg:bg-none lg:border-none lg:backdrop-opacity-0 lg:blur-none lg:border-0"
         >
-          <div class="">
-            <span class="lg:font-semibold">Đốm lá</span>
+          <div
+            v-for="(disease, index) in diseases"
+            :key="index"
+            :class="{ 'mt-5': index !== 0 }"
+            class=""
+          >
+            <span class="lg:font-semibold">{{ disease.name }}</span>
             <div
-              class="w-full relative h-9 mt-2 border-[2px] border-white lg:mt-[6px] rounded-[10px]"
+              class="w-full relative h-9 mt-2 border-[2px] border-white lg:mt-[6px] rounded-[10px] overflow-hidden"
             >
               <div
-                class="absolute lg:h-[35px] transition w-[70%] h-9 lg:mt-0 flex items-center justify-end top-1/2 -translate-y-1/2 bg-white rounded-[9px] mr-3"
+                :style="{
+                  width: disease.percent + '%',
+                }"
+                class="absolute lg:h-[40px] transition-width ease-in-out duration-500 h-9 lg:mt-0 flex items-center justify-end top-1/2 left-0 -translate-y-1/2 bg-white"
               ></div>
               <span
                 :class="{
-                  'text-day': dayNightStatus === 'Day',
-                  'text-night': dayNightStatus === 'Night',
+                  'text-day': dayNightStatus === 'Day' && disease.percent >= 8,
+                  'text-night':
+                    dayNightStatus === 'Night' && disease.percent >= 8,
+                  'text-white': disease.percent <= 7,
                 }"
                 class="block absolute top-1/2 -translate-y-1/2 left-4"
-                >70%</span
-              >
-            </div>
-          </div>
-          <div class="mt-5">
-            <span class="lg:font-semibold">Thán thư</span>
-            <div
-              class="w-full relative h-9 mt-2 border-[2px] border-white lg:mt-[6px] rounded-[10px]"
-            >
-              <div
-                class="absolute lg:h-[35px] transition h-9 lg:mt-0 flex items-center justify-end top-1/2 -translate-y-1/2 bg-white rounded-[9px] mr-3"
-              ></div>
-              <span
-                class="block absolute top-1/2 -translate-y-1/2 left-4 text-white"
-                >0%</span
-              >
-            </div>
-          </div>
-          <div class="mt-5">
-            <span class="lg:font-semibold">Héo khô đầu lá</span>
-            <div
-              class="w-full relative h-9 mt-2 border-[2px] border-white lg:mt-[6px] rounded-[10px]"
-            >
-              <div
-                class="absolute lg:h-[35px] transition h-9 lg:mt-0 flex items-center justify-end top-1/2 -translate-y-1/2 bg-white rounded-[9px] mr-3"
-              ></div>
-              <span
-                class="block absolute top-1/2 -translate-y-1/2 left-4 text-white"
-                >0%</span
-              >
-            </div>
-          </div>
-          <div class="mt-5">
-            <span class="lg:font-semibold">Thối đọt</span>
-            <div
-              class="w-full relative h-9 mt-2 border-[2px] border-white lg:mt-[6px] rounded-[10px]"
-            >
-              <div
-                class="absolute lg:h-[35px] transition h-9 lg:mt-0 flex items-center justify-end top-1/2 -translate-y-1/2 bg-white rounded-[9px] mr-3"
-              ></div>
-              <span
-                class="block absolute top-1/2 -translate-y-1/2 left-4 text-white"
-                >0%</span
-              >
-            </div>
-          </div>
-          <div class="mt-5">
-            <span class="lg:font-semibold">Khác</span>
-            <div
-              class="w-full relative h-9 mt-2 border-[2px] border-white lg:mt-[6px] rounded-[10px]"
-            >
-              <div
-                class="absolute lg:h-[35px] transition h-9 lg:mt-0 flex items-center justify-end top-1/2 -translate-y-1/2 bg-white rounded-[9px] mr-3"
-              ></div>
-              <span
-                class="block absolute top-1/2 -translate-y-1/2 left-4 text-white"
-                >0%</span
+                >{{ disease.percent }}%</span
               >
             </div>
           </div>
@@ -335,15 +289,27 @@ export default {
   name: "HomeView",
   setup() {
     const app = ref(null);
+    const swiper = ref(null);
     const currentTime = ref("");
     const dayNightStatus = ref("");
     const formattedDate = ref("");
     const logIconUrl = ref(require("@/assets/images/temp.svg"));
     const isOpenModal = ref(false);
+    const diseases = ref([
+      { name: "Đốm lá", percent: "0" },
+      { name: "Thán thư", percent: "0" },
+      { name: "Thối đọt", percent: "0" },
+      { name: "Héo khô đầu lá", percent: "0" },
+      { name: "None", percent: "0" },
+    ]);
+    let model;
+    let maxPredictions;
+
+    const URL = "https://teachablemachine.withgoogle.com/models/YJqqRrpNu/";
 
     const videos = reactive([
-      require("@/assets/videos/video1.mp4"),
-      require("@/assets/videos/video1.mp4"),
+      "http://35.198.245.86",
+      require("@/assets/videos/video.mp4"),
       require("@/assets/videos/video1.mp4"),
       require("@/assets/videos/video1.mp4"),
     ]);
@@ -379,8 +345,8 @@ export default {
       },
     ]);
 
-    function initSwiper() {
-      new Swiper(".swiper-container", {
+    async function initSwiper() {
+      swiper.value = new Swiper(".swiper-container", {
         slidesPerView: 1,
         spaceBetween: 15,
         loop: true,
@@ -393,6 +359,37 @@ export default {
           prevEl: ".swiper-button-prev",
         },
       });
+    }
+
+    async function initPredict() {
+      try {
+        const modelURL = URL + "model.json";
+        const metadataURL = URL + "metadata.json";
+        model = await window.tmImage.load(modelURL, metadataURL);
+        maxPredictions = model.getTotalClasses();
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    async function predict() {
+      try {
+        const arr = [];
+        const activeSlideIndex = swiper.value.activeIndex;
+        const activeSlide = swiper.value.slides[activeSlideIndex];
+        const video = activeSlide.querySelector("video");
+        const prediction = await model.predict(video);
+        for (let i = 0; i < maxPredictions; i++) {
+          const obj = {
+            name: prediction[i].className,
+            percent: Math.ceil(prediction[i].probability * 100),
+          };
+          arr.push(obj);
+        }
+        diseases.value = [...arr];
+      } catch (error) {
+        console.log(error);
+      }
     }
 
     function updateRealTime() {
@@ -440,9 +437,7 @@ export default {
       isOpenModal.value = !isOpenModal.value;
     }
 
-    function onTemperatureDetails() {
-      logIconUrl.value = require("@/assets/images/temp.svg");
-    }
+    function onTemperatureDetails() {}
 
     function onMoistureDetails() {
       logIconUrl.value = require("@/assets/images/mois.svg");
@@ -464,21 +459,25 @@ export default {
       logIconUrl.value = require("@/assets/images/ph.svg");
     }
 
-    onMounted(() => {
-      initSwiper();
-      setInterval(updateRealTime, 60000);
+    onMounted(async () => {
       updateRealTime();
+      await initSwiper();
+      await initPredict();
+      setInterval(predict, 500);
+      setInterval(updateRealTime, 60000);
     });
 
     return {
       app,
       currentTime,
       dayNightStatus,
+      diseases,
       formattedDate,
       logData,
       logIconUrl,
       isOpenModal,
       videos,
+      swiper,
       initSwiper,
       onToggleModal,
       onTemperatureDetails,
