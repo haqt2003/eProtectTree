@@ -82,7 +82,9 @@
             class="flex flex-col lg:flex-row w-[30%] lg:w-auto items-center lg:justify-between cursor-pointer hover:scale-110 transition mt-10 lg:mt-12"
           >
             <img src="../assets/images/co2.svg" alt="" class="w-10 lg:w-8" />
-            <span class="block mt-2 lg:mt-0 lg:ml-3 text-[14px]">400</span>
+            <span class="block mt-2 lg:mt-0 lg:ml-3 text-[14px]">{{
+              data
+            }}</span>
           </div>
           <div
             @click="onPhDetails()"
@@ -285,6 +287,7 @@
 import { ref, reactive, onMounted } from "vue";
 import Swiper from "swiper/bundle";
 import "swiper/swiper-bundle.css";
+import { useDatabase } from "@/composables/useDatabase";
 export default {
   name: "HomeView",
   setup() {
@@ -295,6 +298,7 @@ export default {
     const formattedDate = ref("");
     const logIconUrl = ref(require("@/assets/images/temp.svg"));
     const isOpenModal = ref(false);
+    const { data } = useDatabase();
     const diseases = ref([
       { name: "Đốm lá", percent: "0" },
       { name: "Thán thư", percent: "0" },
@@ -473,6 +477,7 @@ export default {
       app,
       currentTime,
       dayNightStatus,
+      data,
       diseases,
       formattedDate,
       logData,
