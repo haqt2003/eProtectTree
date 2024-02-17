@@ -1,19 +1,20 @@
 import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
 import { getDatabase, ref, onValue } from "firebase/database";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyA4yiTkCSj1XY1ISjbTmX-X9jaDcoyTzdY",
-  authDomain: "eprotecttree-8a002.firebaseapp.com",
+  apiKey: "AIzaSyDPfiZLWw_l0tkNh63ofupqpNH_Ir5B-x0",
+  authDomain: "eprotecttree.firebaseapp.com",
   databaseURL:
-    "https://eprotecttree-8a002-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "eprotecttree-8a002",
-  storageBucket: "eprotecttree-8a002.appspot.com",
-  messagingSenderId: "493967977430",
-  appId: "1:493967977430:web:7e5881c636bacc5bdb9277",
-  measurementId: "G-JVZ5HHYYPM",
+    "https://eprotecttree-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "eprotecttree",
+  storageBucket: "eprotecttree.appspot.com",
+  messagingSenderId: "702828974326",
+  appId: "1:702828974326:web:c0b0d737ee8077dd229cd7",
+  measurementId: "G-P17P7L5NHP",
 };
-
 const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 const db = getDatabase();
 
-export { app, db, ref, onValue };
+export { auth, db, ref, onValue };

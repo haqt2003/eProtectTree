@@ -6,7 +6,7 @@ const data = ref(null);
 
 function readDatabase() {
   try {
-    const dataRef = prjRef(db, "Sensor/carbondioxitLevel/");
+    const dataRef = prjRef(db, "Sensor/carbondioxitLevel/PLNIXE/Value");
     onValue(dataRef, (snapshot) => {
       data.value = snapshot.val();
     });

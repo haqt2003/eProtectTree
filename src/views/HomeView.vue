@@ -4,10 +4,7 @@
     ref="app"
     class="h-[100vh] w-[100vw] overflow-auto bg-cover lg:bg-cennter text-white"
   >
-    <div class="lg:hidden mx-auto mt-10 text-center">
-      <span class="font-semibold">eProtectTree</span>
-      <span class="block mt-1">{{ formattedDate }}</span>
-    </div>
+    <date-and-time />
     <div
       class="mx-auto relative flex-wrap mt-8 lg:mt-0 w-full lg:max-h-[730px] max-w-[1680px] px-5 lg:px-[120px] lg:pt-[55px] lg:pb-[76px] lg:h-full flex lg:justify-between items-center"
     >
@@ -20,7 +17,7 @@
           <div class="flex justify-between lg:justify-start items-center">
             <div class="flex items-center lg:block">
               <img
-                src="../assets/images/rose.svg"
+                src="../assets/images/home/rose.svg"
                 alt=""
                 class="w-[20px] lg:w-[75px]"
               />
@@ -53,44 +50,62 @@
             @click="onTemperatureDetails()"
             class="flex flex-col lg:flex-row w-[30%] lg:w-auto items-center lg:justify-between cursor-pointer hover:scale-110 transition"
           >
-            <img src="../assets/images/temp.svg" alt="" class="w-10 lg:w-8" />
+            <img
+              src="../assets/images/home/temp.svg"
+              alt=""
+              class="w-10 lg:w-8"
+            />
             <span class="block mt-2 lg:mt-0 lg:ml-3 text-[14px]">15°C</span>
           </div>
           <div
             @click="onMoistureDetails()"
             class="flex flex-col lg:flex-row w-[30%] lg:w-auto items-center lg:justify-between cursor-pointer hover:scale-110 transition"
           >
-            <img src="../assets/images/mois.svg" alt="" class="w-10 lg:w-8" />
+            <img
+              src="../assets/images/home/mois.svg"
+              alt=""
+              class="w-10 lg:w-8"
+            />
             <span class="block mt-2 lg:mt-0 lg:ml-3 text-[14px]">30%</span>
           </div>
           <div
             @click="onSoidDetails()"
             class="flex flex-col lg:flex-row w-[30%] lg:w-auto items-center lg:justify-between cursor-pointer hover:scale-110 transition lg:mt-12"
           >
-            <img src="../assets/images/soil.svg" alt="" class="w-10 lg:w-8" />
+            <img
+              src="../assets/images/home/soil.svg"
+              alt=""
+              class="w-10 lg:w-8"
+            />
             <span class="block mt-2 lg:mt-0 lg:ml-3 text-[14px]">60%</span>
           </div>
           <div
             @click="onLightDetails()"
             class="flex flex-col lg:flex-row w-[30%] lg:w-auto items-center lg:justify-between cursor-pointer hover:scale-110 transition mt-10 lg:mt-12"
           >
-            <img src="../assets/images/light.svg" alt="" class="w-10 lg:w-8" />
+            <img
+              src="../assets/images/home/light.svg"
+              alt=""
+              class="w-10 lg:w-8"
+            />
             <span class="block mt-2 lg:mt-0 lg:ml-3 text-[14px]">350</span>
           </div>
           <div
             @click="onCo2Details()"
             class="flex flex-col lg:flex-row w-[30%] lg:w-auto items-center lg:justify-between cursor-pointer hover:scale-110 transition mt-10 lg:mt-12"
           >
-            <img src="../assets/images/co2.svg" alt="" class="w-10 lg:w-8" />
-            <span class="block mt-2 lg:mt-0 lg:ml-3 text-[14px]">{{
-              data
-            }}</span>
+            <img
+              src="../assets/images/home/co2.svg"
+              alt=""
+              class="w-10 lg:w-8"
+            />
+            <span class="block mt-2 lg:mt-0 lg:ml-3 text-[14px]">350</span>
           </div>
           <div
             @click="onPhDetails()"
             class="flex flex-col lg:flex-row w-[30%] lg:w-auto items-center justify-between cursor-pointer hover:scale-110 transition mt-10 lg:mt-12"
           >
-            <img src="../assets/images/ph.svg" alt="" class="w-8 lg:w-7" />
+            <img src="../assets/images/home/ph.svg" alt="" class="w-8 lg:w-7" />
             <span class="block mt-2 lg:mt-0 lg:ml-3 text-[14px]">6,5</span>
           </div>
         </div>
@@ -108,10 +123,10 @@
                   <div
                     class="h-[242px] lg:h-[420px] w-full rounded-2xl relative"
                   >
-                    <video
+                    <img
                       :src="video"
                       class="w-full h-full object-cover rounded-2xl"
-                    ></video>
+                    />
                   </div>
                 </div>
                 <div class="swiper-slide">
@@ -124,10 +139,10 @@
                       :class="{ 'mt-[10px] lg:mt-2': index >= 2 }"
                       class="h-[116px] lg:h-[205px] w-[48.4%] lg:w-[49.1%] rounded-2xl relative"
                     >
-                      <video
+                      <img
                         :src="video"
                         class="w-full h-full object-cover rounded-2xl"
-                      ></video>
+                      />
                     </div>
                   </div>
                 </div>
@@ -139,14 +154,14 @@
           </div>
           <div class="swiper-button-next">
             <img
-              src="../assets/images/arrow-right.svg"
+              src="../assets/images/home/arrow-right.svg"
               alt=""
               class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
             />
           </div>
           <div class="swiper-button-prev">
             <img
-              src="../assets/images/arrow-left.svg"
+              src="../assets/images/home/arrow-left.svg"
               alt=""
               class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
             />
@@ -197,10 +212,10 @@
               ></div>
               <span
                 :class="{
-                  'text-day': dayNightStatus === 'Day' && disease.percent >= 8,
+                  'text-day': dayNightStatus === 'Day' && disease.percent >= 9,
                   'text-night':
-                    dayNightStatus === 'Night' && disease.percent >= 8,
-                  'text-white': disease.percent <= 7,
+                    dayNightStatus === 'Night' && disease.percent >= 9,
+                  'text-white': disease.percent <= 8,
                 }"
                 class="block absolute top-1/2 -translate-y-1/2 left-4"
                 >{{ disease.percent }}%</span
@@ -232,7 +247,7 @@
       >
         <img
           @click="onToggleModal()"
-          src="../assets/images/close.svg"
+          src="../assets/images/home/close.svg"
           alt=""
           class="absolute top-6 right-6 w-7 cursor-pointer"
         />
@@ -258,12 +273,12 @@
               elit vel phasellus tellus sit malesuada varius. Enim ultricies
               mollis imperdiet platea ac nibh. Suspendis
               <img
-                src="../assets/images/img-test.svg"
+                src="../assets/images/home/img-test.svg"
                 alt=""
                 class="my-2 w-full lg:w-[49%] lg:h-[210px]"
               />
               <img
-                src="../assets/images/img-test.svg"
+                src="../assets/images/home/img-test.svg"
                 alt=""
                 class="my-2 w-full lg:w-[49%] lg:h-[210px]"
               />
@@ -285,20 +300,24 @@
 
 <script>
 import { ref, reactive, onMounted } from "vue";
+import DateAndTime from "@/components/DateAndTime.vue";
 import Swiper from "swiper/bundle";
 import "swiper/swiper-bundle.css";
 import { useDatabase } from "@/composables/useDatabase";
+
 export default {
   name: "HomeView",
+  components: {
+    DateAndTime,
+  },
   setup() {
     const app = ref(null);
     const swiper = ref(null);
-    const currentTime = ref("");
     const dayNightStatus = ref("");
-    const formattedDate = ref("");
-    const logIconUrl = ref(require("@/assets/images/temp.svg"));
+    const logIconUrl = ref(require("@/assets/images/home/temp.svg"));
     const isOpenModal = ref(false);
     const { data } = useDatabase();
+
     const diseases = ref([
       { name: "Đốm lá", percent: "0" },
       { name: "Thán thư", percent: "0" },
@@ -312,10 +331,10 @@ export default {
     const URL = "https://teachablemachine.withgoogle.com/models/YJqqRrpNu/";
 
     const videos = reactive([
-      "http://35.198.245.86",
-      require("@/assets/videos/video.mp4"),
-      require("@/assets/videos/video1.mp4"),
-      require("@/assets/videos/video1.mp4"),
+      "http://35.198.245.86/camera2/",
+      require("@/assets/images/home/pic1.jpg"),
+      require("@/assets/images/home/pic2.jpeg"),
+      require("@/assets/images/home/pic3.jpg"),
     ]);
 
     const logData = reactive([
@@ -381,8 +400,8 @@ export default {
         const arr = [];
         const activeSlideIndex = swiper.value.activeIndex;
         const activeSlide = swiper.value.slides[activeSlideIndex];
-        const video = activeSlide.querySelector("video");
-        const prediction = await model.predict(video);
+        const img = activeSlide.querySelector("img");
+        const prediction = await model.predict(img);
         for (let i = 0; i < maxPredictions; i++) {
           const obj = {
             name: prediction[i].className,
@@ -407,19 +426,13 @@ export default {
       }
 
       updateBg();
-
-      const days = ["CN", "Th 2", "Th 3", "Th 4", "Th 5", "Th 6", "Th 7"];
-      const dayOfWeek = days[time.getDay()];
-      const date = time.getDate();
-      const month = time.getMonth() + 1; // Lưu ý: Tháng bắt đầu từ 0
-      formattedDate.value = `${dayOfWeek.slice(0, 4)}, ${date} thg ${month}`;
     }
 
     function updateBg() {
       const imagePath =
         dayNightStatus.value === "Day"
-          ? require("@/assets/images/bg1.svg")
-          : require("@/assets/images/bg2.svg");
+          ? require("@/assets/images/home/bg1.svg")
+          : require("@/assets/images/home/bg2.svg");
       if (dayNightStatus.value === "Day") {
         if (app.value) {
           app.value.setAttribute(
@@ -442,44 +455,42 @@ export default {
     }
 
     function onTemperatureDetails() {
-      logIconUrl.value = require("@/assets/images/temp.svg");
+      logIconUrl.value = require("@/assets/images/home/temp.svg");
     }
 
     function onMoistureDetails() {
-      logIconUrl.value = require("@/assets/images/mois.svg");
+      logIconUrl.value = require("@/assets/images/home/mois.svg");
     }
 
     function onSoidDetails() {
-      logIconUrl.value = require("@/assets/images/soil.svg");
+      logIconUrl.value = require("@/assets/images/home/soil.svg");
     }
 
     function onLightDetails() {
-      logIconUrl.value = require("@/assets/images/light.svg");
+      logIconUrl.value = require("@/assets/images/home/light.svg");
     }
 
     function onCo2Details() {
-      logIconUrl.value = require("@/assets/images/co2.svg");
+      logIconUrl.value = require("@/assets/images/home/co2.svg");
     }
 
     function onPhDetails() {
-      logIconUrl.value = require("@/assets/images/ph.svg");
+      logIconUrl.value = require("@/assets/images/home/ph.svg");
     }
 
-    onMounted(async () => {
+    onMounted(() => {
       updateRealTime();
-      await initSwiper();
-      await initPredict();
+      initSwiper();
+      initPredict();
       setInterval(predict, 500);
       setInterval(updateRealTime, 60000);
     });
 
     return {
       app,
-      currentTime,
       dayNightStatus,
       data,
       diseases,
-      formattedDate,
       logData,
       logIconUrl,
       isOpenModal,
