@@ -26,7 +26,7 @@
             v-model="email"
             type="email"
             id="email"
-            class="outline-none bg-transparent cursor-pointer w-[80%]"
+            class="outline-none text-[14px] lg:text-[16px] bg-transparent cursor-pointer w-[80%]"
           />
           <img
             src="../assets/images/login/email.svg"
@@ -35,13 +35,13 @@
           />
           <span
             v-if="!isShowEmail && !email"
-            class="font-medium absolute top-1/2 left-5 -translate-y-1/2"
+            class="font-medium text-[14px] lg:text-[16px] absolute top-1/2 left-5 -translate-y-1/2"
             >Email ID</span
           >
         </label>
         <label
           for="password"
-          class="mt-5 lg:mt-7 px-5 lg:px-7 rounded-[44px] cursor-pointer text-[14px] h-[52px] lg:h-[68px] flex justify-between w-full border-[2px] border-white items-center relative"
+          class="mt-5 lg:mt-7 px-5 lg:px-7 rounded-[44px] cursor-pointer h-[52px] lg:h-[68px] flex justify-between w-full border-[2px] border-white items-center relative"
         >
           <input
             @focus="onTogglePassword()"
@@ -49,7 +49,7 @@
             v-model="password"
             type="password"
             id="password"
-            class="outline-none bg-transparent cursor-pointer w-[80%]"
+            class="outline-none text-[14px] lg:text-[16px] bg-transparent cursor-pointer w-[80%]"
           />
           <img
             v-if="!password"
@@ -71,7 +71,7 @@
           />
           <span
             v-if="!isShowPassword && !password"
-            class="font-medium text-[14px] absolute top-1/2 left-5 -translate-y-1/2"
+            class="font-medium text-[14px] lg:text-[16px] absolute top-1/2 left-5 -translate-y-1/2"
             >Password</span
           >
         </label>

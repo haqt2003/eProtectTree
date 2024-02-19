@@ -2,13 +2,13 @@ import { ref, watchEffect } from "vue";
 import { db, ref as prjRef, onValue } from "@/configs/firebase";
 
 const error = ref(null);
-const data = ref(null);
+const logData = ref(null);
 
 function readDatabase() {
   try {
-    const dataRef = prjRef(db, "Sensor/carbondioxitLevel/PLNIXE/Value");
+    const dataRef = prjRef(db, "Sensor/carbondioxitLevel");
     onValue(dataRef, (snapshot) => {
-      data.value = snapshot.val();
+      logData.value = snapshot.val();
     });
   } catch (err) {
     error.value = err;
@@ -17,9 +17,10 @@ function readDatabase() {
 
 export function useDatabase() {
   readDatabase();
+
   watchEffect(() => {
-    console.log(data.value); // Thực hiện cập nhật giao diện người dùng tại đây
+    console.log(logData.value); // Thực hiện cập nhật giao diện người dùng tại đây
   });
 
-  return { error, data };
+  return { error, logData };
 }

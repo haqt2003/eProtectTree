@@ -171,15 +171,24 @@
           class="hidden relative lg:flex justify-between items-center px-10 py-7 lg:h-[100px] w-full [background:linear-gradient(168.26deg,_rgba(255,_255,_255,_0.3),_rgba(255,_255,_255,_0.15))] shadow-[0px_20px_40px_rgba(0,_0,_0,_0.1)] [backdrop-filter:blur(20px)] border-[1px] border-solid border-gray lg:rounded-2xl"
         >
           <img :src="`${logIconUrl}`" alt="" class="w-7 cursor-pointer" />
-          <div class="flex justify-between items-center w-[88%]">
+          <div
+            ref="scrollableDiv"
+            @mousedown="handleMouseDown"
+            @mouseleave="handleMouseLeave"
+            @mouseup="handleMouseUp"
+            @mousemove="handleMouseMove"
+            class="log cursor-pointer flex gap-8 items-center w-[88%] overflow-x-scroll"
+          >
             <div
               v-for="(item, index) in logData"
               :key="index"
-              class="text-center"
+              class="text-center log-item"
             >
-              <span class="block font-semibold">{{ item.time }}</span>
+              <span class="block font-semibold"
+                >{{ formatDate(item.timeStamp) }}
+              </span>
               <span class="block mt-2">{{
-                item.data ? item.data : "---"
+                item.value ? item.value : "---"
               }}</span>
             </div>
           </div>
@@ -316,7 +325,11 @@ export default {
     const dayNightStatus = ref("");
     const logIconUrl = ref(require("@/assets/images/home/temp.svg"));
     const isOpenModal = ref(false);
-    const { data } = useDatabase();
+    const { logData } = useDatabase();
+    const isDown = ref(false);
+    const startX = ref(0);
+    const scrollLeft = ref(0);
+    const scrollableDiv = ref(null);
 
     const diseases = ref([
       { name: "Đốm lá", percent: "0" },
@@ -335,37 +348,6 @@ export default {
       require("@/assets/images/home/pic1.jpg"),
       require("@/assets/images/home/pic2.jpeg"),
       require("@/assets/images/home/pic3.jpg"),
-    ]);
-
-    const logData = reactive([
-      {
-        time: "11:30",
-        data: "25%",
-      },
-      {
-        time: "11:30",
-        data: "25%",
-      },
-      {
-        time: "11:30",
-        data: "25%",
-      },
-      {
-        time: "11:30",
-        data: "25%",
-      },
-      {
-        time: "11:30",
-        data: "25%",
-      },
-      {
-        time: "11:30",
-        data: "26%",
-      },
-      {
-        time: "11:30",
-        data: "",
-      },
     ]);
 
     async function initSwiper() {
@@ -478,6 +460,39 @@ export default {
       logIconUrl.value = require("@/assets/images/home/ph.svg");
     }
 
+    const handleMouseDown = (event) => {
+      isDown.value = true;
+      startX.value = event.pageX - scrollableDiv.value.offsetLeft;
+      scrollLeft.value = scrollableDiv.value.scrollLeft;
+    };
+
+    const handleMouseLeave = () => {
+      isDown.value = false;
+    };
+
+    const handleMouseUp = () => {
+      isDown.value = false;
+    };
+
+    const handleMouseMove = (event) => {
+      if (!isDown.value) return;
+      event.preventDefault();
+      const x = event.pageX - scrollableDiv.value.offsetLeft;
+      const walk = (x - startX.value) * 1; // Tăng tốc độ cuộn
+      scrollableDiv.value.scrollLeft = scrollLeft.value - walk;
+    };
+
+    function formatDate(timestamp) {
+      const parsedTimestamp = parseInt(timestamp);
+
+      const date = new Date(parsedTimestamp);
+      const hours = date.getHours();
+      const minutes = date.getMinutes();
+      const formattedHours = hours < 10 ? "0" + hours : hours;
+      const formattedMinutes = minutes < 10 ? "0" + minutes : minutes;
+      return `${formattedHours}:${formattedMinutes}`;
+    }
+
     onMounted(() => {
       updateRealTime();
       initSwiper();
@@ -489,13 +504,18 @@ export default {
     return {
       app,
       dayNightStatus,
-      data,
-      diseases,
       logData,
+      diseases,
       logIconUrl,
       isOpenModal,
       videos,
+      scrollableDiv,
       swiper,
+      formatDate,
+      handleMouseDown,
+      handleMouseLeave,
+      handleMouseUp,
+      handleMouseMove,
       initSwiper,
       onToggleModal,
       onTemperatureDetails,
