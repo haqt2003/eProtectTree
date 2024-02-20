@@ -49,11 +49,9 @@ dataPressure = {
     'note':''
 }
 # Push data to Firebase
-while True:
-    db.child("Sensor").child("humidity").push(dataHumidity)
-    db.child("Sensor").child("carbondioxitLevel").push(dataCo2)
-    db.child("Sensor").child("lightIntensity").push(dataCo2)
-    db.child("Sensor").child("phLevel").push(dataPh)
-    db.child("Sensor").child("temperature").push(dataTemp)
-    db.child("Sensor").child("osmoticPressure").push(dataPressure)
-    time.sleep(10)
+db.child("Sensor").child("humidity").push(dataHumidity)
+db.child("Sensor").child("carbondioxitLevel").push(dataCo2)
+db.child("Sensor").child("lightIntensity").push(dataCo2)
+db.child("Sensor").child("phLevel").push(dataPh)
+db.child("Sensor").child("temperature").push(dataTemp)
+db.child("Sensor").child("osmoticPressure").push(dataPressure)
