@@ -170,14 +170,19 @@
         <div
           class="hidden relative lg:flex justify-between items-center px-10 py-7 lg:h-[100px] w-full [background:linear-gradient(168.26deg,_rgba(255,_255,_255,_0.3),_rgba(255,_255,_255,_0.15))] shadow-[0px_20px_40px_rgba(0,_0,_0,_0.1)] [backdrop-filter:blur(20px)] border-[1px] border-solid border-gray lg:rounded-2xl"
         >
-          <img :src="`${logIconUrl}`" alt="" class="w-7 cursor-pointer" />
+          <img
+            :src="`${logIconUrl}`"
+            @click="scrollToStart()"
+            alt=""
+            class="w-7 cursor-pointer"
+          />
           <div
             ref="scrollableDiv"
             @mousedown="handleMouseDown"
             @mouseleave="handleMouseLeave"
             @mouseup="handleMouseUp"
             @mousemove="handleMouseMove"
-            class="log cursor-pointer flex gap-8 items-center w-[88%] overflow-x-scroll"
+            class="log cursor-pointer flex gap-10 items-center w-[88%] overflow-x-scroll"
           >
             <div
               v-for="(item, index) in logData"
@@ -187,9 +192,9 @@
               <span class="block font-semibold"
                 >{{ formatDate(item.timeStamp) }}
               </span>
-              <span class="block mt-2">{{
-                item.value ? item.value : "---"
-              }}</span>
+              <span class="block mt-2"
+                >{{ item.value ? item.value : "---" }}{{ unit }}</span
+              >
             </div>
           </div>
           <div
@@ -325,7 +330,9 @@ export default {
     const dayNightStatus = ref("");
     const logIconUrl = ref(require("@/assets/images/home/temp.svg"));
     const isOpenModal = ref(false);
-    const { logData } = useDatabase();
+    const unit = ref("°C");
+    const path = ref("Sensor/temperature");
+    const { logData } = useDatabase(path.value);
     const isDown = ref(false);
     const startX = ref(0);
     const scrollLeft = ref(0);
@@ -438,26 +445,44 @@ export default {
 
     function onTemperatureDetails() {
       logIconUrl.value = require("@/assets/images/home/temp.svg");
+      path.value = "Sensor/temperature";
+      useDatabase(path.value);
+      unit.value = "°C";
     }
 
     function onMoistureDetails() {
       logIconUrl.value = require("@/assets/images/home/mois.svg");
+      path.value = "Sensor/humidity";
+      useDatabase(path.value);
+      unit.value = "%";
     }
 
     function onSoidDetails() {
       logIconUrl.value = require("@/assets/images/home/soil.svg");
+      path.value = "Sensor/osmoticPressure";
+      useDatabase(path.value);
+      unit.value = "%";
     }
 
     function onLightDetails() {
       logIconUrl.value = require("@/assets/images/home/light.svg");
+      path.value = "Sensor/lightIntensity";
+      useDatabase(path.value);
+      unit.value = "";
     }
 
     function onCo2Details() {
       logIconUrl.value = require("@/assets/images/home/co2.svg");
+      path.value = "Sensor/carbondioxitLevel";
+      useDatabase(path.value);
+      unit.value = "";
     }
 
     function onPhDetails() {
       logIconUrl.value = require("@/assets/images/home/ph.svg");
+      path.value = "Sensor/phLevel";
+      useDatabase(path.value);
+      unit.value = "";
     }
 
     const handleMouseDown = (event) => {
@@ -478,8 +503,38 @@ export default {
       if (!isDown.value) return;
       event.preventDefault();
       const x = event.pageX - scrollableDiv.value.offsetLeft;
-      const walk = (x - startX.value) * 1; // Tăng tốc độ cuộn
+      const walk = (x - startX.value) * 1;
       scrollableDiv.value.scrollLeft = scrollLeft.value - walk;
+    };
+
+    const scrollToStart = () => {
+      smoothScroll(scrollableDiv.value, 0, 500);
+    };
+
+    const smoothScroll = (element, to, duration) => {
+      const start = element.scrollLeft;
+      const change = to - start;
+      const increment = 20;
+
+      const animateScroll = (elapsedTime) => {
+        elapsedTime += increment;
+        const position = easeInOut(elapsedTime, start, change, duration);
+        element.scrollLeft = position;
+        if (elapsedTime < duration) {
+          setTimeout(() => {
+            animateScroll(elapsedTime);
+          }, increment);
+        }
+      };
+
+      animateScroll(0);
+    };
+
+    const easeInOut = (t, b, c, d) => {
+      t /= d / 2;
+      if (t < 1) return (c / 2) * t * t + b;
+      t--;
+      return (-c / 2) * (t * (t - 2) - 1) + b;
     };
 
     function formatDate(timestamp) {
@@ -508,9 +563,11 @@ export default {
       diseases,
       logIconUrl,
       isOpenModal,
+      path,
       videos,
       scrollableDiv,
       swiper,
+      unit,
       formatDate,
       handleMouseDown,
       handleMouseLeave,
@@ -524,6 +581,7 @@ export default {
       onLightDetails,
       onCo2Details,
       onPhDetails,
+      scrollToStart,
       updateBg,
     };
   },
