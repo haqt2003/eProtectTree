@@ -21,20 +21,21 @@
                 alt=""
                 class="w-[20px] lg:w-[75px]"
               />
-              <span class="font-semibold text-[14px] ml-3 block lg:hidden"
-                >Hoa hồng</span
-              >
+              <span class="font-semibold text-[14px] ml-3 block lg:hidden">{{
+                detailsData ? detailsData.Name : ""
+              }}</span>
             </div>
             <div class="lg:ml-[18px]">
-              <span class="font-bold text-[22px] hidden lg:block"
-                >Hoa hồng</span
-              >
-              <span class="text-[14px] lg:text-base">8 tháng</span>
+              <span class="font-bold text-[22px] hidden lg:block">{{
+                detailsData ? detailsData.Name : ""
+              }}</span>
+              <span class="text-[14px] lg:text-base">{{
+                detailsData ? detailsData.Time : ""
+              }}</span>
             </div>
           </div>
           <p class="text-justify mt-5 lg:mt-7 text-[16px] lg:text-[14px]">
-            Lorem ipsum dolor sit amet consectetur. Sagittis tristique leo
-            egestas faucibus posuere eu commodo dui volutpat. Facilisi malesuada
+            {{ detailsData ? detailsData.Text : "" }}
           </p>
           <div
             class="absolute lg:hidden h-[0.5px] w-[310px] top-[55px] left-1/2 -translate-x-1/2 bg-white opacity-60"
@@ -248,7 +249,7 @@
           }"
           class="lg:absolute w-full lg:mt-0 mt-8 h-[56px] rounded-[20px] font-semibold lg:bottom-14 lg:font-semibold tracking-wide [background:linear-gradient(168.26deg,_rgba(255,_255,_255,_0.3),_rgba(255,_255,_255,_0.15))] shadow-[0px_20px_40px_rgba(0,_0,_0,_0.1)] [backdrop-filter:blur(20px)] border-solid border-gray lg:shadow-none lg:bg-none lg:backdrop-opacity-0 lg:blur-none lg:text-[14px] flex items-center justify-center lg:right-[50px] lg:left-[50px] lg:h-12 lg:w-[198px] border-[0.5px] lg:rounded-[12px] lg:border-white lg:hover:bg-white cursor-pointer transition"
         >
-          XEM CÁCH KHẮC PHỤC
+          HOW TO FIX
         </button>
       </div>
     </div>
@@ -266,39 +267,19 @@
           class="absolute top-6 right-6 w-7 cursor-pointer"
         />
         <div class="">
-          <h2 class="text-center font-bold text-[24px]">CÁCH KHẮC PHỤC</h2>
+          <h2 class="text-center font-bold text-[24px]">SOLUTIONS</h2>
           <div class="mt-3 lg:mt-5 overflow-y-scroll h-[335px] modal">
             <p class="text-justify lg:pr-4 flex flex-wrap justify-between">
-              Lorem ipsum dolor sit amet consectetur. Cras venenatis imperdiet
-              malesuada nunc dui enim lacus faucibus eget. Lectus suscipit erat
-              ut lectus aliquam pellentesque. Est iaculis varius tempor nec ac.
-              Malesuada ac enim elit vel phasellus tellus sit malesuada varius.
-              Enim ultricies mollis imperdiet platea ac nibh. Suspendisse netus
-              volutpat sem purus. Viverra lectus placerat interdum nunc bibendum
-              eget purus purus platea. Sed sed diam vestibulum magna. Phasellus
-              tempor augue sed faucibus diam cras cursus ullamcorper.Lorem ipsum
-              dolor sit amet consectetur. Cras venenatis imperdiet malesuada
-              nunc dui enim lacus faucibus eget. Lectus suscipit erat ut lectus
-              aliquam pellentesque. Est iaculis varius tempor nec ac. Malesuada
-              ac enim elit vel phasellus tellus sit malesuada varius. Enim
-              ultricies mollis imperdiet platea ac nibh. Suspendisse nunc dui
-              enim lacus faucibus eget. Lectus suscipit erat ut lectus aliquam
-              pellentesque. Est iaculis varius tempor nec ac. Malesuada ac enim
-              elit vel phasellus tellus sit malesuada varius. Enim ultricies
-              mollis imperdiet platea ac nibh. Suspendis
+              <span>{{ fixData.Detail }}</span>
+              <span>{{ fixData.Solution }}</span>
               <img
-                src="../assets/images/home/img-test.svg"
+                :src="fixData.Image"
                 alt=""
-                class="my-2 w-full lg:w-[49%] lg:h-[210px]"
-              />
-              <img
-                src="../assets/images/home/img-test.svg"
-                alt=""
-                class="my-2 w-full lg:w-[49%] lg:h-[210px]"
+                class="my-2 w-full lg:h-[210px]"
               />
               <iframe
                 class="my-2 w-full lg:w-[605px] lg:h-[315px]"
-                src="https://www.youtube.com/embed/qYX0ACKOeqQ?si=PxcxlYo_D5F0jaQk"
+                :src="fixData.Video"
                 title="YouTube video player"
                 frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -309,6 +290,15 @@
         </div>
       </div>
     </div>
+    <div
+      class="absolute cursor-pointer bottom-6 right-6 lg:bottom-10 lg:right-14"
+    >
+      <img
+        src="../assets/images/home/chatbot-logo.svg"
+        alt=""
+        class="w-[74px] lg:w-24"
+      />
+    </div>
   </div>
 </template>
 
@@ -318,6 +308,8 @@ import DateAndTime from "@/components/DateAndTime.vue";
 import Swiper from "swiper/bundle";
 import "swiper/swiper-bundle.css";
 import { useDatabase } from "@/composables/useDatabase";
+import { useDetails } from "@/composables/useDetails";
+import { useFix } from "@/composables/useFix";
 
 export default {
   name: "HomeView",
@@ -332,7 +324,10 @@ export default {
     const isOpenModal = ref(false);
     const unit = ref("°C");
     const path = ref("Sensor/temperature");
+    const fixPath = ref("Fix/Hoa Hong/Phan trang");
     const { logData } = useDatabase(path.value);
+    const { detailsData } = useDetails();
+    const { fixData } = useFix(fixPath.value);
     const isDown = ref(false);
     const startX = ref(0);
     const scrollLeft = ref(0);
@@ -351,8 +346,8 @@ export default {
     const URL = "https://teachablemachine.withgoogle.com/models/YJqqRrpNu/";
 
     const videos = reactive([
+      "http://35.198.245.86/camera1/",
       "http://35.198.245.86/camera2/",
-      require("@/assets/images/home/pic1.jpg"),
       require("@/assets/images/home/pic2.jpeg"),
       require("@/assets/images/home/pic3.jpg"),
     ]);
@@ -441,6 +436,14 @@ export default {
 
     function onToggleModal() {
       isOpenModal.value = !isOpenModal.value;
+      const maxPercentDisease = findMaxPercent();
+      if (maxPercentDisease.name === "Hoa Hồng - Đốm Lá") {
+        fixPath.value = "Fix/Hoa Hong/Phan trang";
+        useFix(fixPath);
+      } else if (maxPercentDisease.name === "Hoa Hồng - Thán Thư") {
+        fixPath.value = "Fix/Hoa Hong/Than thu";
+        useFix(fixPath);
+      }
     }
 
     function onTemperatureDetails() {
@@ -537,6 +540,19 @@ export default {
       return (-c / 2) * (t * (t - 2) - 1) + b;
     };
 
+    function findMaxPercent() {
+      let maxPercentObj = diseases.value[0];
+      for (let i = 1; i < diseases.value.length; i++) {
+        if (
+          parseFloat(diseases.value[i].percent) >
+          parseFloat(maxPercentObj.percent)
+        ) {
+          maxPercentObj = diseases.value[i];
+        }
+      }
+      return maxPercentObj;
+    }
+
     function formatDate(timestamp) {
       const parsedTimestamp = parseInt(timestamp);
 
@@ -559,8 +575,11 @@ export default {
     return {
       app,
       dayNightStatus,
-      logData,
+      detailsData,
       diseases,
+      fixData,
+      fixPath,
+      logData,
       logIconUrl,
       isOpenModal,
       path,
@@ -569,6 +588,7 @@ export default {
       swiper,
       unit,
       formatDate,
+      findMaxPercent,
       handleMouseDown,
       handleMouseLeave,
       handleMouseUp,
