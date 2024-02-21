@@ -21,20 +21,19 @@
                 alt=""
                 class="w-[20px] lg:w-[75px]"
               />
-              <span class="font-semibold text-[14px] ml-3 block lg:hidden"
-                >Hoa hồng</span
-              >
+              <span class="font-semibold text-[14px] ml-3 block lg:hidden">{{
+                des.Name
+              }}</span>
             </div>
             <div class="lg:ml-[18px]">
-              <span class="font-bold text-[22px] hidden lg:block"
-                >Hoa hồng</span
-              >
-              <span class="text-[14px] lg:text-base">8 tháng</span>
+              <span class="font-bold text-[22px] hidden lg:block">{{
+                des.Name
+              }}</span>
+              <span class="text-[14px] lg:text-base">{{ des.Time }}</span>
             </div>
           </div>
           <p class="text-justify mt-5 lg:mt-7 text-[16px] lg:text-[14px]">
-            Lorem ipsum dolor sit amet consectetur. Sagittis tristique leo
-            egestas faucibus posuere eu commodo dui volutpat. Facilisi malesuada
+            {{ des.Text }}
           </p>
           <div
             class="absolute lg:hidden h-[0.5px] w-[310px] top-[55px] left-1/2 -translate-x-1/2 bg-white opacity-60"
@@ -170,19 +169,14 @@
         <div
           class="hidden relative lg:flex justify-between items-center px-10 py-7 lg:h-[100px] w-full [background:linear-gradient(168.26deg,_rgba(255,_255,_255,_0.3),_rgba(255,_255,_255,_0.15))] shadow-[0px_20px_40px_rgba(0,_0,_0,_0.1)] [backdrop-filter:blur(20px)] border-[1px] border-solid border-gray lg:rounded-2xl"
         >
-          <img
-            :src="`${logIconUrl}`"
-            @click="scrollToStart()"
-            alt=""
-            class="w-7 cursor-pointer"
-          />
+          <img :src="`${logIconUrl}`" alt="" class="w-7 cursor-pointer" />
           <div
             ref="scrollableDiv"
             @mousedown="handleMouseDown"
             @mouseleave="handleMouseLeave"
             @mouseup="handleMouseUp"
             @mousemove="handleMouseMove"
-            class="log cursor-pointer flex gap-10 items-center w-[88%] overflow-x-scroll"
+            class="log cursor-pointer flex gap-8 items-center w-[88%] overflow-x-scroll"
           >
             <div
               v-for="(item, index) in logData"
@@ -192,9 +186,9 @@
               <span class="block font-semibold"
                 >{{ formatDate(item.timeStamp) }}
               </span>
-              <span class="block mt-2"
-                >{{ item.value ? item.value : "---" }}{{ unit }}</span
-              >
+              <span class="block mt-2">{{
+                item.value ? item.value : "---"
+              }}</span>
             </div>
           </div>
           <div
@@ -248,7 +242,7 @@
           }"
           class="lg:absolute w-full lg:mt-0 mt-8 h-[56px] rounded-[20px] font-semibold lg:bottom-14 lg:font-semibold tracking-wide [background:linear-gradient(168.26deg,_rgba(255,_255,_255,_0.3),_rgba(255,_255,_255,_0.15))] shadow-[0px_20px_40px_rgba(0,_0,_0,_0.1)] [backdrop-filter:blur(20px)] border-solid border-gray lg:shadow-none lg:bg-none lg:backdrop-opacity-0 lg:blur-none lg:text-[14px] flex items-center justify-center lg:right-[50px] lg:left-[50px] lg:h-12 lg:w-[198px] border-[0.5px] lg:rounded-[12px] lg:border-white lg:hover:bg-white cursor-pointer transition"
         >
-          XEM CÁCH KHẮC PHỤC
+          SEE SOLUTION
         </button>
       </div>
     </div>
@@ -266,44 +260,30 @@
           class="absolute top-6 right-6 w-7 cursor-pointer"
         />
         <div class="">
-          <h2 class="text-center font-bold text-[24px]">CÁCH KHẮC PHỤC</h2>
+          <h2 class="text-center font-bold text-[24px]">SOLUTION</h2>
           <div class="mt-3 lg:mt-5 overflow-y-scroll h-[335px] modal">
             <p class="text-justify lg:pr-4 flex flex-wrap justify-between">
-              Lorem ipsum dolor sit amet consectetur. Cras venenatis imperdiet
-              malesuada nunc dui enim lacus faucibus eget. Lectus suscipit erat
-              ut lectus aliquam pellentesque. Est iaculis varius tempor nec ac.
-              Malesuada ac enim elit vel phasellus tellus sit malesuada varius.
-              Enim ultricies mollis imperdiet platea ac nibh. Suspendisse netus
-              volutpat sem purus. Viverra lectus placerat interdum nunc bibendum
-              eget purus purus platea. Sed sed diam vestibulum magna. Phasellus
-              tempor augue sed faucibus diam cras cursus ullamcorper.Lorem ipsum
-              dolor sit amet consectetur. Cras venenatis imperdiet malesuada
-              nunc dui enim lacus faucibus eget. Lectus suscipit erat ut lectus
-              aliquam pellentesque. Est iaculis varius tempor nec ac. Malesuada
-              ac enim elit vel phasellus tellus sit malesuada varius. Enim
-              ultricies mollis imperdiet platea ac nibh. Suspendisse nunc dui
-              enim lacus faucibus eget. Lectus suscipit erat ut lectus aliquam
-              pellentesque. Est iaculis varius tempor nec ac. Malesuada ac enim
-              elit vel phasellus tellus sit malesuada varius. Enim ultricies
-              mollis imperdiet platea ac nibh. Suspendis
+              <span v-html="datafix.Detail"> </span><br />
+              <span v-html="datafix.Solution"></span>
               <img
-                src="../assets/images/home/img-test.svg"
+                :src="datafix.Image"
                 alt=""
                 class="my-2 w-full lg:w-[49%] lg:h-[210px]"
               />
               <img
-                src="../assets/images/home/img-test.svg"
+                :src="datafix.Image"
                 alt=""
                 class="my-2 w-full lg:w-[49%] lg:h-[210px]"
               />
               <iframe
                 class="my-2 w-full lg:w-[605px] lg:h-[315px]"
-                src="https://www.youtube.com/embed/qYX0ACKOeqQ?si=PxcxlYo_D5F0jaQk"
+                :src="datafix.Video"
                 title="YouTube video player"
                 frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowfullscreen
-              ></iframe>
+              >
+              </iframe>
             </p>
           </div>
         </div>
@@ -318,6 +298,8 @@ import DateAndTime from "@/components/DateAndTime.vue";
 import Swiper from "swiper/bundle";
 import "swiper/swiper-bundle.css";
 import { useDatabase } from "@/composables/useDatabase";
+import { useFirebase } from "@/composables/useFirebase";
+import { useDescribe } from "@/composables/useDescribe";
 
 export default {
   name: "HomeView",
@@ -325,24 +307,24 @@ export default {
     DateAndTime,
   },
   setup() {
+    const { des } = useDescribe();
+    const { datafix } = useFirebase();
     const app = ref(null);
     const swiper = ref(null);
     const dayNightStatus = ref("");
     const logIconUrl = ref(require("@/assets/images/home/temp.svg"));
     const isOpenModal = ref(false);
-    const unit = ref("°C");
-    const path = ref("Sensor/temperature");
-    const { logData } = useDatabase(path.value);
+    const { logData } = useDatabase();
     const isDown = ref(false);
     const startX = ref(0);
     const scrollLeft = ref(0);
     const scrollableDiv = ref(null);
 
     const diseases = ref([
-      { name: "Đốm lá", percent: "0" },
-      { name: "Thán thư", percent: "0" },
-      { name: "Thối đọt", percent: "0" },
-      { name: "Héo khô đầu lá", percent: "0" },
+      { name: "Leaf spots", percent: "0" },
+      { name: "Anthracnose", percent: "0" },
+      { name: "Bud rot", percent: "0" },
+      { name: "Withered leaf tips", percent: "0" },
       { name: "None", percent: "0" },
     ]);
     let model;
@@ -445,44 +427,26 @@ export default {
 
     function onTemperatureDetails() {
       logIconUrl.value = require("@/assets/images/home/temp.svg");
-      path.value = "Sensor/temperature";
-      useDatabase(path.value);
-      unit.value = "°C";
     }
 
     function onMoistureDetails() {
       logIconUrl.value = require("@/assets/images/home/mois.svg");
-      path.value = "Sensor/humidity";
-      useDatabase(path.value);
-      unit.value = "%";
     }
 
     function onSoidDetails() {
       logIconUrl.value = require("@/assets/images/home/soil.svg");
-      path.value = "Sensor/osmoticPressure";
-      useDatabase(path.value);
-      unit.value = "%";
     }
 
     function onLightDetails() {
       logIconUrl.value = require("@/assets/images/home/light.svg");
-      path.value = "Sensor/lightIntensity";
-      useDatabase(path.value);
-      unit.value = "";
     }
 
     function onCo2Details() {
       logIconUrl.value = require("@/assets/images/home/co2.svg");
-      path.value = "Sensor/carbondioxitLevel";
-      useDatabase(path.value);
-      unit.value = "";
     }
 
     function onPhDetails() {
       logIconUrl.value = require("@/assets/images/home/ph.svg");
-      path.value = "Sensor/phLevel";
-      useDatabase(path.value);
-      unit.value = "";
     }
 
     const handleMouseDown = (event) => {
@@ -503,38 +467,8 @@ export default {
       if (!isDown.value) return;
       event.preventDefault();
       const x = event.pageX - scrollableDiv.value.offsetLeft;
-      const walk = (x - startX.value) * 1;
+      const walk = (x - startX.value) * 1; // Tăng tốc độ cuộn
       scrollableDiv.value.scrollLeft = scrollLeft.value - walk;
-    };
-
-    const scrollToStart = () => {
-      smoothScroll(scrollableDiv.value, 0, 500);
-    };
-
-    const smoothScroll = (element, to, duration) => {
-      const start = element.scrollLeft;
-      const change = to - start;
-      const increment = 20;
-
-      const animateScroll = (elapsedTime) => {
-        elapsedTime += increment;
-        const position = easeInOut(elapsedTime, start, change, duration);
-        element.scrollLeft = position;
-        if (elapsedTime < duration) {
-          setTimeout(() => {
-            animateScroll(elapsedTime);
-          }, increment);
-        }
-      };
-
-      animateScroll(0);
-    };
-
-    const easeInOut = (t, b, c, d) => {
-      t /= d / 2;
-      if (t < 1) return (c / 2) * t * t + b;
-      t--;
-      return (-c / 2) * (t * (t - 2) - 1) + b;
     };
 
     function formatDate(timestamp) {
@@ -557,17 +491,17 @@ export default {
     });
 
     return {
+      des,
+      datafix,
       app,
       dayNightStatus,
       logData,
       diseases,
       logIconUrl,
       isOpenModal,
-      path,
       videos,
       scrollableDiv,
       swiper,
-      unit,
       formatDate,
       handleMouseDown,
       handleMouseLeave,
@@ -581,7 +515,6 @@ export default {
       onLightDetails,
       onCo2Details,
       onPhDetails,
-      scrollToStart,
       updateBg,
     };
   },

@@ -2,26 +2,21 @@ import { ref, watchEffect } from "vue";
 import { db, ref as prjRef, onValue } from "@/configs/firebase";
 
 const error = ref(null);
-const logData = ref([]);
+const logData = ref(null);
 
-function readDatabase(path) {
+function readDatabase() {
   try {
-    const dataRef = prjRef(db, path);
+    const dataRef = prjRef(db, "Sensor/carbondioxitLevel");
     onValue(dataRef, (snapshot) => {
-      const values = snapshot.val();
-      if (values) {
-        const dataArray = Object.values(values);
-        const slicedData = dataArray.slice(-20);
-        logData.value = slicedData;
-      }
+      logData.value = snapshot.val();
     });
   } catch (err) {
     error.value = err;
   }
 }
 
-export function useDatabase(path) {
-  readDatabase(path);
+export function useDatabase() {
+  readDatabase();
 
   watchEffect(() => {
     console.log(logData.value); // Thực hiện cập nhật giao diện người dùng tại đây
