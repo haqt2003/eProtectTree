@@ -56,6 +56,15 @@
   scrollbar-width: none; /* Firefox */
 }
 
+.details-plant::-webkit-scrollbar {
+  display: none;
+}
+
+.log {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
 .log-item {
   -webkit-user-select: none; /* Safari */
   -moz-user-select: none; /* Firefox */

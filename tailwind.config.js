@@ -9,6 +9,13 @@ module.exports = {
         day: "#818451",
         night: "#4B4B4B",
       },
+      animation: { "animate-bounce": "bounce 3s linear infinite" },
+      keyframes: {
+        bounce: {
+          "0%, 100%": { transform: "translateY(-3%)" },
+          "50%": { transform: "translateY(0)" },
+        },
+      },
       spacing: {},
     },
     fontSize: {

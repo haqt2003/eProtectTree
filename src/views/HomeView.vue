@@ -25,7 +25,7 @@
                 detailsData ? detailsData.Name : ""
               }}</span>
             </div>
-            <div class="lg:ml-[18px]">
+            <div class="lg:ml-[24px]">
               <span class="font-bold text-[22px] hidden lg:block">{{
                 detailsData ? detailsData.Name : ""
               }}</span>
@@ -34,8 +34,14 @@
               }}</span>
             </div>
           </div>
-          <p class="text-justify mt-5 lg:mt-7 text-[16px] lg:text-[14px]">
-            {{ detailsData ? detailsData.Text : "" }}
+          <p
+            class="text-justify mt-5 lg:mt-7 text-[16px] lg:text-[14px] overflow-scroll details-plant"
+          >
+            <!-- {{ detailsData ? detailsData.Text : "" }} -->
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt
+            blanditiis vitae nobis asperiores rerum dolorum ducimus, nihil est
+            cum ad accusamus voluptatum ipsam recusandae pariatur eaque expedita
+            consequatur, vel soluta?
           </p>
           <div
             class="absolute lg:hidden h-[0.5px] w-[310px] top-[55px] left-1/2 -translate-x-1/2 bg-white opacity-60"
@@ -56,7 +62,9 @@
               alt=""
               class="w-10 lg:w-8"
             />
-            <span class="block mt-2 lg:mt-0 lg:ml-3 text-[14px]">15°C</span>
+            <span class="block mt-2 lg:mt-0 lg:ml-3 text-[14px]"
+              >{{ temp ? temp.value : "---" }}°C</span
+            >
           </div>
           <div
             @click="onMoistureDetails()"
@@ -67,7 +75,9 @@
               alt=""
               class="w-10 lg:w-8"
             />
-            <span class="block mt-2 lg:mt-0 lg:ml-3 text-[14px]">30%</span>
+            <span class="block mt-2 lg:mt-0 lg:ml-3 text-[14px]"
+              >{{ mois ? mois.value : "---" }}%</span
+            >
           </div>
           <div
             @click="onSoidDetails()"
@@ -78,7 +88,9 @@
               alt=""
               class="w-10 lg:w-8"
             />
-            <span class="block mt-2 lg:mt-0 lg:ml-3 text-[14px]">60%</span>
+            <span class="block mt-2 lg:mt-0 lg:ml-3 text-[14px]"
+              >{{ soil ? soil.value : "---" }}%</span
+            >
           </div>
           <div
             @click="onLightDetails()"
@@ -89,7 +101,9 @@
               alt=""
               class="w-10 lg:w-8"
             />
-            <span class="block mt-2 lg:mt-0 lg:ml-3 text-[14px]">350</span>
+            <span class="block mt-2 lg:mt-0 lg:ml-3 text-[14px]">{{
+              light ? light.value : "---"
+            }}</span>
           </div>
           <div
             @click="onCo2Details()"
@@ -100,14 +114,18 @@
               alt=""
               class="w-10 lg:w-8"
             />
-            <span class="block mt-2 lg:mt-0 lg:ml-3 text-[14px]">350</span>
+            <span class="block mt-2 lg:mt-0 lg:ml-3 text-[14px]">{{
+              co2 ? co2.value : "---"
+            }}</span>
           </div>
           <div
             @click="onPhDetails()"
             class="flex flex-col lg:flex-row w-[30%] lg:w-auto items-center justify-between cursor-pointer hover:scale-110 transition mt-10 lg:mt-12"
           >
             <img src="../assets/images/home/ph.svg" alt="" class="w-8 lg:w-7" />
-            <span class="block mt-2 lg:mt-0 lg:ml-3 text-[14px]">6,5</span>
+            <span class="block mt-2 lg:mt-0 lg:ml-3 text-[14px]">{{
+              ph ? ph.value : "---"
+            }}</span>
           </div>
         </div>
       </div>
@@ -291,12 +309,12 @@
       </div>
     </div>
     <div
-      class="absolute cursor-pointer bottom-6 right-6 lg:bottom-10 lg:right-14"
+      class="absolute cursor-pointer bottom-6 right-6 lg:bottom-10 lg:right-14 animate-bounce"
     >
       <img
         src="../assets/images/home/chatbot-logo.svg"
         alt=""
-        class="w-[74px] lg:w-24"
+        class="w-[74px] lg:w-24 hover:lg:w-[105px] transition-width ease-in-out duration-300"
       />
     </div>
   </div>
@@ -310,6 +328,7 @@ import "swiper/swiper-bundle.css";
 import { useDatabase } from "@/composables/useDatabase";
 import { useDetails } from "@/composables/useDetails";
 import { useFix } from "@/composables/useFix";
+import { useSensor } from "@/composables/useSensor";
 
 export default {
   name: "HomeView",
@@ -322,12 +341,19 @@ export default {
     const dayNightStatus = ref("");
     const logIconUrl = ref(require("@/assets/images/home/temp.svg"));
     const isOpenModal = ref(false);
+    const temp = ref(null);
+    const mois = ref(null);
+    const soil = ref(null);
+    const light = ref(null);
+    const co2 = ref(null);
+    const ph = ref(null);
     const unit = ref("°C");
     const path = ref("Sensor/temperature");
     const fixPath = ref("Fix/Hoa Hong/Phan trang");
     const { logData } = useDatabase(path.value);
     const { detailsData } = useDetails();
     const { fixData } = useFix(fixPath.value);
+    const { readDatabase } = useSensor();
     const isDown = ref(false);
     const startX = ref(0);
     const scrollLeft = ref(0);
@@ -431,6 +457,19 @@ export default {
             `background-image: url("${imagePath}")`
           );
         }
+      }
+    }
+
+    async function getSensor() {
+      try {
+        co2.value = await readDatabase("Sensor/carbondioxitLevel");
+        ph.value = await readDatabase("Sensor/phLevel");
+        temp.value = await readDatabase("Sensor/temperature");
+        soil.value = await readDatabase("Sensor/osmoticPressure");
+        mois.value = await readDatabase("Sensor/humidity");
+        light.value = await readDatabase("Sensor/lightIntensity");
+      } catch (error) {
+        console.log("Cannot get data sensor");
       }
     }
 
@@ -568,6 +607,7 @@ export default {
       updateRealTime();
       initSwiper();
       initPredict();
+      setInterval(getSensor, 100);
       setInterval(predict, 500);
       setInterval(updateRealTime, 60000);
     });
@@ -585,6 +625,12 @@ export default {
       path,
       videos,
       scrollableDiv,
+      temp,
+      mois,
+      soil,
+      light,
+      co2,
+      ph,
       swiper,
       unit,
       formatDate,
