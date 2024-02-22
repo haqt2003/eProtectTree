@@ -37,11 +37,7 @@
           <p
             class="text-justify mt-5 lg:mt-7 text-[16px] lg:text-[14px] overflow-scroll details-plant"
           >
-            <!-- {{ detailsData ? detailsData.Text : "" }} -->
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt
-            blanditiis vitae nobis asperiores rerum dolorum ducimus, nihil est
-            cum ad accusamus voluptatum ipsam recusandae pariatur eaque expedita
-            consequatur, vel soluta?
+            {{ detailsData ? detailsData.Text : "" }}
           </p>
           <div
             class="absolute lg:hidden h-[0.5px] w-[310px] top-[55px] left-1/2 -translate-x-1/2 bg-white opacity-60"
