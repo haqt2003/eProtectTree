@@ -32,7 +32,9 @@
       ref="sectionRef"
       class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[52%] h-[84%] lg:h-[73%] w-full px-5 lg:px-4 overflow-y-scroll"
     >
-      <h1 v-if="!messages" class="text-center mt-10">No messages</h1>
+      <h1 v-if="!messages" class="text-center mt-10 text-[#ADADAD]">
+        No messages
+      </h1>
       <ul>
         <li
           v-for="msg in messages"
