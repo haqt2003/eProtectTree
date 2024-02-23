@@ -287,16 +287,24 @@
           <h2 class="text-center font-bold text-[24px]">SOLUTIONS</h2>
           <div class="mt-3 lg:mt-5 overflow-y-scroll h-[335px] modal">
             <p class="text-justify lg:pr-4 flex flex-wrap justify-between">
-              <span>{{ fixData.Detail }}</span>
-              <span>{{ fixData.Solution }}</span>
+              <span
+                v-if="fixData && fixData.detail"
+                v-html="fixData.detail"
+              ></span>
+              <span
+                v-if="fixData && fixData.solution"
+                v-html="fixData.solution"
+              ></span>
               <img
-                :src="fixData.Image"
+                v-if="fixData && fixData.image"
+                :src="fixData.image"
                 alt=""
-                class="my-2 w-full lg:h-[210px]"
+                class="my-2 w-full"
               />
               <iframe
                 class="my-2 w-full lg:w-[605px] lg:h-[315px]"
-                :src="fixData.Video"
+                v-if="fixData && fixData.video"
+                :src="fixData.video"
                 title="YouTube video player"
                 frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -308,7 +316,9 @@
       </div>
     </div>
     <div
-      class="absolute cursor-pointer bottom-6 right-6 lg:bottom-10 lg:right-14 animate-bounce"
+      v-if="!isOpenChatBox"
+      @click="onToggleChat()"
+      class="absolute cursor-pointer bottom-6 right-6 lg:bottom-10 lg:right-14 animate-bounce hover:animate-none"
     >
       <img
         src="../assets/images/home/chatbot-logo.svg"
@@ -316,12 +326,12 @@
         class="w-[74px] lg:w-24 hover:lg:w-[105px] transition-width ease-in-out duration-300"
       />
     </div>
-    <chat-box />
+    <chat-box v-if="isOpenChatBox" :isOpenChatBox="isOpenChatBox" />
   </div>
 </template>
 
 <script>
-import { ref, reactive, onMounted } from "vue";
+import { ref, reactive, provide, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import DateAndTime from "@/components/DateAndTime.vue";
 import ChatBox from "@/components/ChatBox.vue";
@@ -344,6 +354,7 @@ export default {
     const swiper = ref(null);
     const dayNightStatus = ref("");
     const logIconUrl = ref(require("@/assets/images/home/temp.svg"));
+    const isOpenChatBox = ref(false);
     const isOpenModal = ref(false);
     const temp = ref(null);
     const mois = ref(null);
@@ -353,10 +364,11 @@ export default {
     const ph = ref(null);
     const unit = ref("°C");
     const path = ref("Sensor/temperature");
-    const fixPath = ref("Fix/Hoa Hong/Phan trang");
+    const fixData = ref(null);
+    const fixPath = ref("fix/Rose/PhanTrang");
     const { logData } = useDatabase(path.value);
     const { detailsData } = useDetails();
-    const { fixData } = useFix(fixPath.value);
+    const { readFix } = useFix();
     const { readDatabase } = useSensor();
     const { signout } = useSignOut();
     const isDown = ref(false);
@@ -479,15 +491,37 @@ export default {
       }
     }
 
-    function onToggleModal() {
+    function onToggleChat() {
+      isOpenChatBox.value = !isOpenChatBox.value;
+    }
+
+    provide("onToggleChat", onToggleChat);
+
+    async function onToggleModal() {
       isOpenModal.value = !isOpenModal.value;
       const maxPercentDisease = findMaxPercent();
       if (maxPercentDisease.name === "Hoa Hồng - Đốm Lá") {
-        fixPath.value = "Fix/Hoa Hong/Phan trang";
-        useFix(fixPath);
+        try {
+          fixPath.value = "fix/Rose/PhanTrang";
+          fixData.value = await readFix(fixPath.value);
+        } catch (error) {
+          console.log(error);
+        }
       } else if (maxPercentDisease.name === "Hoa Hồng - Thán Thư") {
-        fixPath.value = "Fix/Hoa Hong/Than thu";
-        useFix(fixPath);
+        try {
+          fixPath.value = "fix/Rose/ThanThu";
+          fixData.value = await readFix(fixPath.value);
+          console.log(fixData.value);
+        } catch (error) {
+          console.log(error);
+        }
+      } else {
+        fixData.value = {
+          detail: "Chưa có dữ liệu",
+          solution: null,
+          image: null,
+          video: null,
+        };
       }
     }
 
@@ -619,7 +653,7 @@ export default {
       initSwiper();
       initPredict();
       setInterval(getSensor, 100);
-      setInterval(predict, 500);
+      setInterval(predict, 1000);
       setInterval(updateRealTime, 60000);
     });
 
@@ -632,6 +666,7 @@ export default {
       fixPath,
       logData,
       logIconUrl,
+      isOpenChatBox,
       isOpenModal,
       path,
       videos,
@@ -652,6 +687,7 @@ export default {
       handleMouseMove,
       initSwiper,
       logOut,
+      onToggleChat,
       onToggleModal,
       onTemperatureDetails,
       onMoistureDetails,

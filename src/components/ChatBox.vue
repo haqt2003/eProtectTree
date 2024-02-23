@@ -5,7 +5,12 @@
     <div
       class="h-[64px] lg:h-[56px] absolute top-0 left-0 w-full z-10 drop-shadow-md bg-white px-5 lg:px-4 flex justify-between items-center"
     >
-      <img src="../assets/images/chat/back.svg" alt="" class="lg:hidden" />
+      <img
+        src="../assets/images/chat/back.svg"
+        alt=""
+        class="lg:hidden"
+        @click="onToggleChat()"
+      />
       <span class="font-semibold max-w-[70%] truncate lg:hidden"
         >Viện nghiên cứu nông sản PTIT lolllllllll
       </span>
@@ -17,6 +22,7 @@
         >
       </div>
       <img
+        @click="onToggleChat()"
         src="../assets/images/chat/close.svg"
         alt=""
         class="hidden lg:block w-[30px] cursor-pointer"
@@ -25,147 +31,102 @@
     <section
       class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[52%] h-[84%] lg:h-[73%] w-full px-5 lg:px-4 overflow-y-scroll"
     >
+      <h1 v-if="!messages" class="text-center mt-10">No messages</h1>
       <ul>
-        <li class="mt-7 float-right flex items-start max-w-[85%] justify-end">
-          <div class="">
-            <p
-              class="max-w-[260px] ml-auto w-fit mb-1 bg-[#57CC98] h-auto px-5 py-[10px] rounded-[20px] text-white"
-            >
-              c
-            </p>
-            <p
-              class="max-w-[260px] ml-auto w-fit mb-1 bg-[#57CC98] h-auto px-5 py-[10px] rounded-[20px] text-white"
-            >
-              lorem ifsumcccccccc
-            </p>
-            <p
-              class="max-w-[260px] ml-auto w-fit mb-1 bg-[#57CC98] h-auto px-5 py-[10px] rounded-[20px] text-white"
-            >
-              c
-            </p>
-            <p
-              class="max-w-[260px] ml-auto w-fit mb-1 bg-[#57CC98] h-auto px-5 py-[10px] rounded-[20px] text-white"
-            >
-              lorem ifsumcccccccc
-            </p>
-          </div>
-        </li>
-        <li class="mt-7 float-left flex items-start max-w-[85%]">
+        <li
+          v-for="msg in messages"
+          :key="msg"
+          :class="[
+            'mt-7',
+            'flex',
+            'items-start',
+            'w-[85%]',
+            msg.username === currentUser ? 'float-right' : '',
+            msg.username === currentUser ? 'justify-end' : '',
+          ]"
+        >
           <img
             src="../assets/images/chat/user.svg"
             alt=""
-            class="lg:w-[36px]"
+            :class="[
+              msg.username === currentUser ? 'hidden' : '',
+              'lg:w-[36px]',
+            ]"
           />
           <div class="ml-3">
-            <span class="mb-3 block text-[#2E9668] truncate max-w-[260px]"
-              >haqt2003@gmail.com</span
+            <span
+              :class="[
+                msg.username === currentUser ? 'hidden' : 'block',
+                'mb-3',
+                'text-[#2E9668]',
+                'truncate',
+                'max-w-[260px]',
+              ]"
+              >{{ msg.username }}</span
             >
             <p
-              class="max-w-[260px] w-fit mb-1 bg-[#F0F0F0] h-auto px-5 py-[10px] rounded-[20px] text-black"
+              :class="[
+                'max-w-[260px]',
+                'w-fit',
+                'mb-1',
+                'h-auto',
+                'px-5',
+                'py-[10px]',
+                'rounded-[20px]',
+                msg.username === currentUser ? 'bg-[#57CC98]' : 'bg-[#F0F0F0]',
+                msg.username === currentUser ? 'text-white' : 'text-black',
+                msg.username === currentUser ? 'ml-auto' : '',
+              ]"
             >
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa
-              labore quas expedita perspi.
-            </p>
-            <p
-              class="max-w-[260px] w-fit mb-1 bg-[#F0F0F0] h-auto px-5 py-[10px] rounded-[20px] text-black"
-            >
-              c
-            </p>
-            <p
-              class="max-w-[260px] w-fit mb-1 bg-[#F0F0F0] h-auto px-5 py-[10px] rounded-[20px] text-black"
-            >
-              Lorem ipsum dolor si
-            </p>
-            <p
-              class="max-w-[260px] w-fit mb-1 bg-[#F0F0F0] h-auto px-5 py-[10px] rounded-[20px] text-black"
-            >
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa
-              labore quas expedita perspi.
-            </p>
-          </div>
-        </li>
-        <li class="mt-7 float-right flex items-start max-w-[85%] justify-end">
-          <div class="">
-            <p
-              class="max-w-[260px] ml-auto w-fit mb-1 bg-[#57CC98] h-auto px-5 py-[10px] rounded-[20px] text-white"
-            >
-              c
-            </p>
-            <p
-              class="max-w-[260px] ml-auto w-fit mb-1 bg-[#57CC98] h-auto px-5 py-[10px] rounded-[20px] text-white"
-            >
-              lorem ifsumcccccccc
-            </p>
-            <p
-              class="max-w-[260px] ml-auto w-fit mb-1 bg-[#57CC98] h-auto px-5 py-[10px] rounded-[20px] text-white"
-            >
-              c
-            </p>
-            <p
-              class="max-w-[260px] ml-auto w-fit mb-1 bg-[#57CC98] h-auto px-5 py-[10px] rounded-[20px] text-white"
-            >
-              lorem ifsumcccccccc
-            </p>
-          </div>
-        </li>
-        <li class="mt-7 float-left flex items-start max-w-[85%]">
-          <img
-            src="../assets/images/chat/user.svg"
-            alt=""
-            class="lg:w-[36px]"
-          />
-          <div class="ml-3">
-            <span class="mb-3 block text-[#2E9668] truncate max-w-[260px]"
-              >haqt2003@gmail.com</span
-            >
-            <p
-              class="max-w-[260px] w-fit mb-1 bg-[#F0F0F0] h-auto px-5 py-[10px] rounded-[20px] text-black"
-            >
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa
-              labore quas expedita perspi.
-            </p>
-            <p
-              class="max-w-[260px] w-fit mb-1 bg-[#F0F0F0] h-auto px-5 py-[10px] rounded-[20px] text-black"
-            >
-              c
-            </p>
-            <p
-              class="max-w-[260px] w-fit mb-1 bg-[#F0F0F0] h-auto px-5 py-[10px] rounded-[20px] text-black"
-            >
-              Lorem ipsum dolor si
-            </p>
-            <p
-              class="max-w-[260px] w-fit mb-1 bg-[#F0F0F0] h-auto px-5 py-[10px] rounded-[20px] text-black"
-            >
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa
-              labore quas expedita perspi.
+              {{ msg.message }}
             </p>
           </div>
         </li>
       </ul>
     </section>
-    <div
+    <form
+      @submit.prevent="onSendMessage"
       class="absolute px-5 lg:px-4 bottom-4 w-full flex justify-between items-center"
     >
-      <img src="../assets/images/chat/add.svg" alt="" class="lg:w-[28px]" />
+      <img
+        src="../assets/images/chat/add.svg"
+        alt=""
+        class="lg:w-[28px] cursor-pointer"
+      />
       <input
+        v-model="message"
         type="text"
         class="h-[46px] lg:h-[40px] px-6 w-[260px] lg:w-[200px] rounded-[50px] outline-none"
         placeholder="Aa"
       />
       <img
+        @click="onSendMessage"
         src="../assets/images/chat/send.svg"
         alt=""
         class="cursor-pointer lg:w-[28px]"
       />
-    </div>
+    </form>
   </div>
 </template>
 
 <script>
+import { ref, inject } from "vue";
+import { useMessage } from "@/composables/useMessage";
+import { useChat } from "@/composables/useChat";
 export default {
   setup() {
-    return {};
+    const currentUser = localStorage.getItem("email");
+    const onToggleChat = inject("onToggleChat");
+    const message = ref("");
+    const { messages } = useChat();
+    const { sendMessage } = useMessage();
+
+    function onSendMessage() {
+      sendMessage(currentUser, message.value);
+      message.value = "";
+    }
+
+    return { currentUser, message, messages, onToggleChat, onSendMessage };
   },
 };
 </script>
