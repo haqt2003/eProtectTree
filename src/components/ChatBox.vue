@@ -12,13 +12,13 @@
         @click="onToggleChat()"
       />
       <span class="font-semibold max-w-[70%] truncate lg:hidden"
-        >Viện nghiên cứu nông sản PTIT lolllllllll
+        >Viện nghiên cứu nông sản PTIT
       </span>
       <img src="../assets/images/chat/user.svg" alt="" class="lg:hidden" />
       <div class="items-center w-[92%] hidden lg:flex">
         <img src="../assets/images/chat/user.svg" alt="" />
         <span class="ml-4 font-semibold max-w-[70%] truncate"
-          >Viện nghiên cứu nông sản PTIT lolllllllll</span
+          >Viện nghiên cứu nông sản PTIT</span
         >
       </div>
       <img
@@ -29,6 +29,7 @@
       />
     </div>
     <section
+      ref="sectionRef"
       class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[52%] h-[84%] lg:h-[73%] w-full px-5 lg:px-4 overflow-y-scroll"
     >
       <h1 v-if="!messages" class="text-center mt-10">No messages</h1>
@@ -37,12 +38,12 @@
           v-for="msg in messages"
           :key="msg"
           :class="[
-            'mt-7',
+            'mt-6',
             'flex',
             'items-start',
             'w-[85%]',
-            msg.username === currentUser ? 'float-right' : '',
-            msg.username === currentUser ? 'justify-end' : '',
+            msg.username === currentUser ? 'float-right' : 'float-left',
+            msg.username === currentUser ? 'justify-end' : 'justify-start',
           ]"
         >
           <img
@@ -57,7 +58,7 @@
             <span
               :class="[
                 msg.username === currentUser ? 'hidden' : 'block',
-                'mb-3',
+                'mb-2',
                 'text-[#2E9668]',
                 'truncate',
                 'max-w-[260px]',
@@ -66,16 +67,15 @@
             >
             <p
               :class="[
-                'max-w-[260px]',
+                'max-w-[300px]',
                 'w-fit',
-                'mb-1',
                 'h-auto',
                 'px-5',
                 'py-[10px]',
                 'rounded-[20px]',
                 msg.username === currentUser ? 'bg-[#57CC98]' : 'bg-[#F0F0F0]',
                 msg.username === currentUser ? 'text-white' : 'text-black',
-                msg.username === currentUser ? 'ml-auto' : '',
+                msg.username === currentUser ? 'ml-auto' : 'mr-auto',
               ]"
             >
               {{ msg.message }}
@@ -110,7 +110,7 @@
 </template>
 
 <script>
-import { ref, inject } from "vue";
+import { ref, onMounted, inject, watch } from "vue";
 import { useMessage } from "@/composables/useMessage";
 import { useChat } from "@/composables/useChat";
 export default {
@@ -120,13 +120,59 @@ export default {
     const message = ref("");
     const { messages } = useChat();
     const { sendMessage } = useMessage();
+    const sectionRef = ref(null);
 
     function onSendMessage() {
       sendMessage(currentUser, message.value);
       message.value = "";
     }
 
-    return { currentUser, message, messages, onToggleChat, onSendMessage };
+    function scrollToBottom() {
+      const element = document.querySelector("section");
+      const distanceToScroll = element.scrollHeight - element.scrollTop;
+      const duration = 500;
+
+      let startTime = null;
+
+      function animation(currentTime) {
+        if (startTime === null) {
+          startTime = currentTime;
+        }
+        const timeElapsed = currentTime - startTime;
+        const scrollProgress = Math.min(timeElapsed / duration, 1);
+        const easedProgress = easeInOutQuad(scrollProgress);
+        element.scrollTop =
+          element.scrollTop + distanceToScroll * easedProgress;
+
+        if (timeElapsed < duration) {
+          requestAnimationFrame(animation);
+        }
+      }
+
+      function easeInOutQuad(t) {
+        return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+      }
+
+      requestAnimationFrame(animation);
+    }
+
+    watch(messages, () => {
+      scrollToBottom();
+    });
+
+    onMounted(() => {
+      scrollToBottom();
+    });
+
+    return {
+      currentUser,
+      message,
+      messages,
+      sectionRef,
+      onToggleChat,
+      onSendMessage,
+      scrollToBottom,
+    };
   },
 };
 </script>
