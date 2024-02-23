@@ -125,8 +125,10 @@ export default {
     const sectionRef = ref(null);
 
     function onSendMessage() {
-      sendMessage(currentUser, message.value);
-      message.value = "";
+      if (message.value) {
+        sendMessage(currentUser, message.value);
+        message.value = "";
+      }
     }
 
     function scrollToBottom() {
