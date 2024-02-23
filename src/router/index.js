@@ -3,7 +3,8 @@ import { auth } from "@/configs/firebase";
 
 const requireAuth = (to, from, next) => {
   const user = auth.currentUser;
-  if (!user) next({ name: "SignIn", params: {} });
+  const loggedIn = localStorage.getItem("loggedIn");
+  if (!user && !loggedIn) next({ name: "SignIn", params: {} });
   else next();
 };
 

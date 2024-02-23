@@ -204,6 +204,7 @@ export default {
           localStorage.setItem("email", email.value);
           localStorage.setItem("password", password.value);
         }
+        localStorage.setItem("loggedIn", "true");
         router.push({ name: "HomeView", params: {} });
       } else alert(error.value);
     };

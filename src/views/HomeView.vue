@@ -25,17 +25,20 @@
                 detailsData ? detailsData.Name : ""
               }}</span>
             </div>
-            <div class="lg:ml-[24px]">
-              <span class="font-bold text-[22px] hidden lg:block">{{
+            <div class="lg:ml-[28px]">
+              <span class="font-bold text-[24px] hidden lg:block">{{
                 detailsData ? detailsData.Name : ""
               }}</span>
-              <span class="text-[14px] lg:text-base">{{
+              <span class="text-[14px] mr-2 lg:mr-0 lg:text-base">{{
                 detailsData ? detailsData.Time : ""
+              }}</span>
+              <span class="text-[14px] lg:text-base lg:block">{{
+                detailsData ? detailsData.Acreage : ""
               }}</span>
             </div>
           </div>
           <p
-            class="text-justify mt-5 lg:mt-7 text-[16px] lg:text-[14px] overflow-scroll details-plant"
+            class="text-justify mt-5 lg:mt-7 text-[16px] lg:text-[14px] overflow-scroll details-plant lg:max-h-[105px]"
           >
             {{ detailsData ? detailsData.Text : "" }}
           </p>
@@ -64,7 +67,7 @@
           </div>
           <div
             @click="onMoistureDetails()"
-            class="flex flex-col lg:flex-row w-[30%] lg:w-auto items-center lg:justify-between cursor-pointer hover:scale-110 transition"
+            class="flex flex-col lg:flex-row w-[30%] lg:min-w-[68px] lg:w-auto items-center lg:justify-between cursor-pointer hover:scale-110 transition"
           >
             <img
               src="../assets/images/home/mois.svg"
@@ -90,7 +93,7 @@
           </div>
           <div
             @click="onLightDetails()"
-            class="flex flex-col lg:flex-row w-[30%] lg:w-auto items-center lg:justify-between cursor-pointer hover:scale-110 transition mt-10 lg:mt-12"
+            class="flex flex-col lg:flex-row w-[30%] lg:min-w-[70px] lg:w-auto items-center lg:justify-between cursor-pointer hover:scale-110 transition mt-10 lg:mt-12"
           >
             <img
               src="../assets/images/home/light.svg"
@@ -116,7 +119,7 @@
           </div>
           <div
             @click="onPhDetails()"
-            class="flex flex-col lg:flex-row w-[30%] lg:w-auto items-center justify-between cursor-pointer hover:scale-110 transition mt-10 lg:mt-12"
+            class="flex flex-col lg:flex-row w-[30%] lg:min-w-[66px] lg:w-auto items-center justify-between cursor-pointer hover:scale-110 transition mt-10 lg:mt-12"
           >
             <img src="../assets/images/home/ph.svg" alt="" class="w-8 lg:w-7" />
             <span class="block mt-2 lg:mt-0 lg:ml-3 text-[14px]">{{
@@ -313,23 +316,28 @@
         class="w-[74px] lg:w-24 hover:lg:w-[105px] transition-width ease-in-out duration-300"
       />
     </div>
+    <chat-box />
   </div>
 </template>
 
 <script>
 import { ref, reactive, onMounted } from "vue";
+import { useRouter } from "vue-router";
 import DateAndTime from "@/components/DateAndTime.vue";
+import ChatBox from "@/components/ChatBox.vue";
 import Swiper from "swiper/bundle";
 import "swiper/swiper-bundle.css";
 import { useDatabase } from "@/composables/useDatabase";
 import { useDetails } from "@/composables/useDetails";
 import { useFix } from "@/composables/useFix";
 import { useSensor } from "@/composables/useSensor";
+import { useSignOut } from "@/composables/useSignOut";
 
 export default {
   name: "HomeView",
   components: {
     DateAndTime,
+    ChatBox,
   },
   setup() {
     const app = ref(null);
@@ -350,10 +358,12 @@ export default {
     const { detailsData } = useDetails();
     const { fixData } = useFix(fixPath.value);
     const { readDatabase } = useSensor();
+    const { signout } = useSignOut();
     const isDown = ref(false);
     const startX = ref(0);
     const scrollLeft = ref(0);
     const scrollableDiv = ref(null);
+    const router = useRouter();
 
     const diseases = ref([
       { name: "Đốm lá", percent: "0" },
@@ -599,6 +609,11 @@ export default {
       return `${formattedHours}:${formattedMinutes}`;
     }
 
+    async function logOut() {
+      await signout();
+      router.push({ name: "SignIn", params: {} });
+    }
+
     onMounted(() => {
       updateRealTime();
       initSwiper();
@@ -636,6 +651,7 @@ export default {
       handleMouseUp,
       handleMouseMove,
       initSwiper,
+      logOut,
       onToggleModal,
       onTemperatureDetails,
       onMoistureDetails,
