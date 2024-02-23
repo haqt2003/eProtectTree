@@ -30,7 +30,7 @@
     </div>
     <section
       ref="sectionRef"
-      class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[52%] h-[84%] lg:h-[73%] w-full px-5 lg:px-4 overflow-y-scroll"
+      class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[52%] h-[80%] lg:h-[73%] w-full px-5 lg:px-4 overflow-y-scroll"
     >
       <h1 v-if="!messages" class="text-center mt-10 text-[#ADADAD]">
         No messages
@@ -69,12 +69,13 @@
             >
             <p
               :class="[
-                'max-w-[300px]',
+                'max-w-[200px]',
                 'w-fit',
                 'h-auto',
                 'px-5',
                 'py-[10px]',
                 'rounded-[20px]',
+                'break-words',
                 msg.username === currentUser ? 'bg-[#57CC98]' : 'bg-[#F0F0F0]',
                 msg.username === currentUser ? 'text-white' : 'text-black',
                 msg.username === currentUser ? 'ml-auto' : 'mr-auto',
