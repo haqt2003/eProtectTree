@@ -517,7 +517,7 @@ export default {
         }
       } else {
         fixData.value = {
-          detail: "Chưa có dữ liệu",
+          detail: "No datas",
           solution: null,
           image: null,
           video: null,
