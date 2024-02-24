@@ -323,7 +323,7 @@
       <img
         src="../assets/images/home/chatbot-logo.svg"
         alt=""
-        class="w-[74px] lg:w-24 hover:lg:w-[105px] transition-width ease-in-out duration-300"
+        class="w-[74px] lg:w-24 hover:lg:w-[100px] transition-width ease-in-out duration-500"
       />
     </div>
     <chat-box v-if="isOpenChatBox" :isOpenChatBox="isOpenChatBox" />
