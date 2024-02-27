@@ -21,7 +21,7 @@
   font-style: normal;
 }
 
-@media screen and (max-width: 1023px) {
+@media screen and (max-width: 1279px) {
   .modal::-webkit-scrollbar {
     display: none;
   }

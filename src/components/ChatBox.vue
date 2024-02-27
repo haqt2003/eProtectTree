@@ -1,6 +1,6 @@
 <template>
   <div
-    class="w-full h-[100vh] z-10 text-black [background:linear-gradient(0deg,_#ECFBF0,_rgba(255,255,255,_100),_rgba(255,255,255,_100))] absolute top-0 left-0 lg:top-[30%] lg:left-[76%] lg:w-[320px] lg:h-[470px] lg:text-[14px]"
+    class="w-full h-[100vh] z-10 text-black [background:linear-gradient(0deg,_#ECFBF0,_rgba(255,255,255,_100),_rgba(255,255,255,_100))] absolute top-0 left-0 lg:top-[28%] lg:left-[76%] lg:w-[320px] lg:h-[470px] lg:text-[14px]"
   >
     <div
       class="h-[64px] lg:h-[56px] absolute top-0 left-0 w-full z-10 drop-shadow-md bg-white px-5 lg:px-4 flex justify-between items-center"

@@ -2,134 +2,134 @@
   <div
     id="app"
     ref="app"
-    class="h-[100vh] w-[100vw] overflow-auto bg-cover lg:bg-cennter text-white"
+    class="h-[100vh] w-[100vw] overflow-auto bg-cover xl:bg-cennter text-white"
   >
     <date-and-time />
     <div
-      class="mx-auto relative flex-wrap mt-8 lg:mt-0 w-full lg:max-h-[730px] max-w-[1680px] px-5 lg:px-[120px] lg:pt-[55px] lg:pb-[76px] lg:h-full flex lg:justify-between items-center"
+      class="mx-auto relative flex-wrap mt-8 xl:mt-0 w-full max-w-[1680px] lg:max-h-[700px] px-5 xl:px-[120px] xl:pt-[50px] xl:pb-[50px] xl:h-full flex xl:justify-between items-center"
     >
       <div
-        class="information-tab mt-8 lg:mt-0 lg:relative order-2 lg:order-1 lg:px-[50px] lg:py-12 w-full h-[180px] lg:w-[23%] lg:h-full lg:rounded-2xl lg:[background:linear-gradient(168.26deg,_rgba(255,_255,_255,_0.3),_rgba(255,_255,_255,_0.15))] lg:shadow-[0px_20px_40px_rgba(0,_0,_0,_0.1)] lg:[backdrop-filter:blur(20px)] lg:border-[1px] lg:border-solid lg:border-gray"
+        class="information-tab mt-8 xl:mt-0 xl:relative order-2 xl:order-1 xl:px-[50px] xl:py-12 w-full h-[180px] xl:w-[23%] xl:h-full xl:rounded-2xl xl:[background:linear-gradient(168.26deg,_rgba(255,_255,_255,_0.3),_rgba(255,_255,_255,_0.15))] xl:shadow-[0px_20px_40px_rgba(0,_0,_0,_0.1)] xl:[backdrop-filter:blur(20px)] xl:border-[1px] xl:border-solid xl:border-gray"
       >
         <div
-          class="rounded-2xl relative px-5 py-5 lg:px-0 lg:py-0 [background:linear-gradient(168.26deg,_rgba(255,_255,_255,_0.3),_rgba(255,_255,_255,_0.15))] shadow-[0px_20px_40px_rgba(0,_0,_0,_0.1)] [backdrop-filter:blur(20px)] border-[1px] border-solid border-gray lg:rounded-none lg:shadow-none lg:bg-none lg:border-none lg:backdrop-opacity-0 lg:blur-none lg:border-0"
+          class="rounded-2xl relative px-5 py-5 xl:px-0 xl:py-0 [background:linear-gradient(168.26deg,_rgba(255,_255,_255,_0.3),_rgba(255,_255,_255,_0.15))] shadow-[0px_20px_40px_rgba(0,_0,_0,_0.1)] [backdrop-filter:blur(20px)] border-[1px] border-solid border-gray xl:rounded-none xl:shadow-none xl:bg-none xl:border-none xl:backdrop-opacity-0 xl:blur-none xl:border-0"
         >
-          <div class="flex justify-between lg:justify-start items-center">
-            <div class="flex items-center lg:block">
+          <div class="flex justify-between xl:justify-start items-center">
+            <div class="flex items-center xl:block">
               <img
                 src="../assets/images/home/rose.svg"
                 alt=""
-                class="w-[20px] lg:w-[75px]"
+                class="w-[20px] xl:w-[75px]"
               />
-              <span class="font-semibold text-[14px] ml-3 block lg:hidden">{{
+              <span class="font-semibold text-[14px] ml-3 block xl:hidden">{{
                 detailsData ? detailsData.Name : ""
               }}</span>
             </div>
-            <div class="lg:ml-[28px]">
-              <span class="font-bold text-[24px] hidden lg:block">{{
+            <div class="xl:ml-[28px]">
+              <span class="font-bold text-[24px] hidden xl:block">{{
                 detailsData ? detailsData.Name : ""
               }}</span>
-              <span class="text-[14px] mr-2 lg:mr-0 lg:text-base">{{
+              <span class="text-[14px] mr-2 xl:mr-0 xl:text-base">{{
                 detailsData ? detailsData.Time : ""
               }}</span>
-              <span class="text-[14px] lg:text-base lg:block">{{
+              <span class="text-[14px] xl:text-base xl:block">{{
                 detailsData ? detailsData.Acreage : ""
               }}</span>
             </div>
           </div>
           <p
-            class="text-justify mt-5 lg:mt-7 text-[16px] lg:text-[14px] overflow-scroll details-plant lg:max-h-[105px]"
+            class="text-justify mt-5 xl:mt-7 text-[16px] xl:text-[14px] overflow-scroll details-plant xl:max-h-[105px]"
           >
             {{ detailsData ? detailsData.Text : "" }}
           </p>
           <div
-            class="absolute lg:hidden h-[0.5px] w-[310px] top-[55px] left-1/2 -translate-x-1/2 bg-white opacity-60"
+            class="absolute xl:hidden h-[0.5px] w-[310px] top-[55px] left-1/2 -translate-x-1/2 bg-white opacity-60"
           ></div>
         </div>
         <div
-          class="absolute hidden lg:block w-[160px] h-[0.1px] opacity-50 bg-white top-[300px] left-1/2 -translate-x-1/2"
+          class="absolute hidden xl:block w-[160px] h-[0.1px] opacity-50 bg-white top-[300px] left-1/2 -translate-x-1/2"
         ></div>
         <div
-          class="flex justify-between mt-8 lg:mt-0 px-[30px] py-[40px] lg:px-0 lg:py-0 items-center rounded-2xl [background:linear-gradient(168.26deg,_rgba(255,_255,_255,_0.3),_rgba(255,_255,_255,_0.15))] shadow-[0px_20px_40px_rgba(0,_0,_0,_0.1)] [backdrop-filter:blur(20px)] border-[1px] border-solid border-gray lg:rounded-none lg:shadow-none lg:bg-none lg:border-none lg:backdrop-opacity-0 lg:blur-none lg:border-0 lg:absolute lg:bottom-14 flex-wrap lg:right-[50px] lg:left-[50px]"
+          class="flex justify-between mt-8 xl:mt-0 px-[30px] py-[40px] xl:px-0 xl:py-0 items-center rounded-2xl [background:linear-gradient(168.26deg,_rgba(255,_255,_255,_0.3),_rgba(255,_255,_255,_0.15))] shadow-[0px_20px_40px_rgba(0,_0,_0,_0.1)] [backdrop-filter:blur(20px)] border-[1px] border-solid border-gray xl:rounded-none xl:shadow-none xl:bg-none xl:border-none xl:backdrop-opacity-0 xl:blur-none xl:border-0 xl:absolute xl:bottom-14 flex-wrap xl:right-[50px] xl:left-[50px]"
         >
           <div
             @click="onTemperatureDetails()"
-            class="flex flex-col lg:flex-row w-[30%] lg:w-auto items-center lg:justify-between cursor-pointer hover:scale-110 transition"
+            class="flex flex-col xl:flex-row w-[30%] xl:w-[35%] items-center xl:justify-between cursor-pointer hover:scale-110 transition"
           >
             <img
               src="../assets/images/home/temp.svg"
               alt=""
-              class="w-10 lg:w-8"
+              class="w-10 xl:w-8"
             />
-            <span class="block mt-2 lg:mt-0 lg:ml-3 text-[14px]"
+            <span class="block mt-2 xl:mt-0 xl:ml-3 text-[14px]"
               >{{ temp ? temp.value : "---" }}°C</span
             >
           </div>
           <div
             @click="onMoistureDetails()"
-            class="flex flex-col lg:flex-row w-[30%] lg:min-w-[68px] lg:w-auto items-center lg:justify-between cursor-pointer hover:scale-110 transition"
+            class="flex flex-col xl:flex-row w-[30%] xl:w-[35%] items-center xl:justify-between cursor-pointer hover:scale-110 transition"
           >
             <img
               src="../assets/images/home/mois.svg"
               alt=""
-              class="w-10 lg:w-8"
+              class="w-10 xl:w-8"
             />
-            <span class="block mt-2 lg:mt-0 lg:ml-3 text-[14px]"
+            <span class="block mt-2 xl:mt-0 xl:ml-3 text-[14px]"
               >{{ mois ? mois.value : "---" }}%</span
             >
           </div>
           <div
             @click="onSoidDetails()"
-            class="flex flex-col lg:flex-row w-[30%] lg:w-auto items-center lg:justify-between cursor-pointer hover:scale-110 transition lg:mt-12"
+            class="flex flex-col xl:flex-row w-[30%] xl:w-[35%] items-center xl:justify-between cursor-pointer hover:scale-110 transition xl:mt-12"
           >
             <img
               src="../assets/images/home/soil.svg"
               alt=""
-              class="w-10 lg:w-8"
+              class="w-10 xl:w-8"
             />
-            <span class="block mt-2 lg:mt-0 lg:ml-3 text-[14px]"
+            <span class="block mt-2 xl:mt-0 xl:ml-3 text-[14px]"
               >{{ soil ? soil.value : "---" }}%</span
             >
           </div>
           <div
             @click="onLightDetails()"
-            class="flex flex-col lg:flex-row w-[30%] lg:min-w-[70px] lg:w-auto items-center lg:justify-between cursor-pointer hover:scale-110 transition mt-10 lg:mt-12"
+            class="flex flex-col xl:flex-row w-[30%] xl:w-[35%] items-center xl:justify-between cursor-pointer hover:scale-110 transition mt-10 xl:mt-12"
           >
             <img
               src="../assets/images/home/light.svg"
               alt=""
-              class="w-10 lg:w-8"
+              class="w-10 xl:w-8"
             />
-            <span class="block mt-2 lg:mt-0 lg:ml-3 text-[14px]">{{
+            <span class="block mt-2 xl:mt-0 xl:ml-3 text-[14px]">{{
               light ? light.value : "---"
             }}</span>
           </div>
           <div
             @click="onCo2Details()"
-            class="flex flex-col lg:flex-row w-[30%] lg:w-auto items-center lg:justify-between cursor-pointer hover:scale-110 transition mt-10 lg:mt-12"
+            class="flex flex-col xl:flex-row w-[30%] xl:w-[35%] items-center xl:justify-between cursor-pointer hover:scale-110 transition mt-10 xl:mt-12"
           >
             <img
               src="../assets/images/home/co2.svg"
               alt=""
-              class="w-10 lg:w-8"
+              class="w-10 xl:w-8"
             />
-            <span class="block mt-2 lg:mt-0 lg:ml-3 text-[14px]">{{
+            <span class="block mt-2 xl:mt-0 xl:ml-3 text-[14px]">{{
               co2 ? co2.value : "---"
             }}</span>
           </div>
           <div
             @click="onPhDetails()"
-            class="flex flex-col lg:flex-row w-[30%] lg:min-w-[66px] lg:w-auto items-center justify-between cursor-pointer hover:scale-110 transition mt-10 lg:mt-12"
+            class="flex flex-col xl:flex-row w-[30%] xl:w-[35%] items-center justify-between cursor-pointer hover:scale-110 transition mt-10 xl:mt-12"
           >
-            <img src="../assets/images/home/ph.svg" alt="" class="w-8 lg:w-7" />
-            <span class="block mt-2 lg:mt-0 lg:ml-3 text-[14px]">{{
+            <img src="../assets/images/home/ph.svg" alt="" class="w-8 xl:w-7" />
+            <span class="block mt-2 xl:mt-0 xl:ml-3 text-[14px]">{{
               ph ? ph.value : "---"
             }}</span>
           </div>
         </div>
       </div>
       <div
-        class="camera-tab overflow-hidden order-1 lg:order-2 w-full h-auto lg:w-[50%] lg:h-full rounded-2xl flex flex-col justify-between"
+        class="camera-tab overflow-hidden order-1 xl:order-2 w-full h-auto xl:w-[50%] xl:h-full rounded-2xl flex flex-col justify-between"
       >
         <div class="">
           <div class="relative">
@@ -139,7 +139,7 @@
               <div class="swiper-wrapper">
                 <div class="swiper-slide" v-for="video in videos" :key="video">
                   <div
-                    class="h-[242px] lg:h-[420px] w-full rounded-2xl relative"
+                    class="h-[242px] xl:h-[430px] w-full rounded-2xl relative"
                   >
                     <img
                       :src="video"
@@ -149,13 +149,13 @@
                 </div>
                 <div class="swiper-slide">
                   <div
-                    class="flex justify-between lg:h-[420px] flex-wrap items-center w-full"
+                    class="flex justify-between xl:h-[420px] flex-wrap items-center w-full"
                   >
                     <div
                       v-for="(video, index) in videos"
                       :key="index"
-                      :class="{ 'mt-[10px] lg:mt-2': index >= 2 }"
-                      class="h-[116px] lg:h-[205px] w-[48.4%] lg:w-[49.1%] rounded-2xl relative"
+                      :class="{ 'mt-[10px] xl:mt-2': index >= 2 }"
+                      class="h-[116px] xl:h-[205px] w-[48.4%] xl:w-[49.1%] rounded-2xl relative"
                     >
                       <img
                         :src="video"
@@ -167,7 +167,7 @@
               </div>
             </div>
             <div
-              class="swiper-pagination flex gap-5 lg:gap-12 justify-center absolute left-1/2 -translate-x-1/2"
+              class="swiper-pagination flex gap-5 xl:gap-12 justify-center absolute left-1/2 -translate-x-1/2"
             ></div>
           </div>
           <div class="swiper-button-next">
@@ -186,7 +186,7 @@
           </div>
         </div>
         <div
-          class="hidden relative lg:flex justify-between items-center px-10 py-7 lg:h-[100px] w-full [background:linear-gradient(168.26deg,_rgba(255,_255,_255,_0.3),_rgba(255,_255,_255,_0.15))] shadow-[0px_20px_40px_rgba(0,_0,_0,_0.1)] [backdrop-filter:blur(20px)] border-[1px] border-solid border-gray lg:rounded-2xl"
+          class="hidden relative xl:flex justify-between items-center px-10 py-7 xl:h-[100px] w-full [background:linear-gradient(168.26deg,_rgba(255,_255,_255,_0.3),_rgba(255,_255,_255,_0.15))] shadow-[0px_20px_40px_rgba(0,_0,_0,_0.1)] [backdrop-filter:blur(20px)] border-[1px] border-solid border-gray xl:rounded-2xl"
         >
           <img
             :src="`${logIconUrl}`"
@@ -221,10 +221,10 @@
         </div>
       </div>
       <div
-        class="forecast-tab mb-14 lg:mb-0 order-3 lg:relative mt-[325px] lg:mt-0 lg:order-3 lg:px-[50px] lg:pb-12 lg:pt-10 w-full lg:w-[23%] lg:h-full lg:rounded-2xl lg:[background:linear-gradient(168.26deg,_rgba(255,_255,_255,_0.3),_rgba(255,_255,_255,_0.15))] lg:shadow-[0px_20px_40px_rgba(0,_0,_0,_0.1)] lg:[backdrop-filter:blur(20px)] lg:border-[1px] lg:border-solid lg:border-gray"
+        class="forecast-tab mb-14 xl:mb-0 order-3 xl:relative mt-[325px] xl:mt-0 xl:order-3 xl:px-[50px] xl:pb-12 xl:pt-10 w-full xl:w-[23%] xl:h-full xl:rounded-2xl xl:[background:linear-gradient(168.26deg,_rgba(255,_255,_255,_0.3),_rgba(255,_255,_255,_0.15))] xl:shadow-[0px_20px_40px_rgba(0,_0,_0,_0.1)] xl:[backdrop-filter:blur(20px)] xl:border-[1px] xl:border-solid xl:border-gray"
       >
         <div
-          class="px-5 pt-6 pb-8 lg:px-0 lg:py-0 rounded-2xl [background:linear-gradient(168.26deg,_rgba(255,_255,_255,_0.3),_rgba(255,_255,_255,_0.15))] shadow-[0px_20px_40px_rgba(0,_0,_0,_0.1)] [backdrop-filter:blur(20px)] border-[1px] border-solid border-gray lg:rounded-none lg:shadow-none lg:bg-none lg:border-none lg:backdrop-opacity-0 lg:blur-none lg:border-0"
+          class="px-5 pt-6 pb-8 xl:px-0 xl:py-0 rounded-2xl [background:linear-gradient(168.26deg,_rgba(255,_255,_255,_0.3),_rgba(255,_255,_255,_0.15))] shadow-[0px_20px_40px_rgba(0,_0,_0,_0.1)] [backdrop-filter:blur(20px)] border-[1px] border-solid border-gray xl:rounded-none xl:shadow-none xl:bg-none xl:border-none xl:backdrop-opacity-0 xl:blur-none xl:border-0"
         >
           <div
             v-for="(disease, index) in diseases"
@@ -232,15 +232,15 @@
             :class="{ 'mt-5': index !== 0 }"
             class=""
           >
-            <span class="lg:font-semibold">{{ disease.name }}</span>
+            <span class="xl:font-semibold">{{ disease.name }}</span>
             <div
-              class="w-full relative h-9 mt-2 border-[2px] border-white lg:mt-[6px] rounded-[10px] overflow-hidden"
+              class="w-full relative h-9 mt-2 border-[2px] border-white xl:mt-[6px] rounded-[10px] overflow-hidden"
             >
               <div
                 :style="{
                   width: disease.percent + '%',
                 }"
-                class="absolute lg:h-[40px] transition-width ease-in-out duration-500 h-9 lg:mt-0 flex items-center justify-end top-1/2 left-0 -translate-y-1/2 bg-white"
+                class="absolute xl:h-[40px] transition-width ease-in-out duration-500 h-9 xl:mt-0 flex items-center justify-end top-1/2 left-0 -translate-y-1/2 bg-white"
               ></div>
               <span
                 :class="{
@@ -256,15 +256,15 @@
           </div>
         </div>
         <div
-          class="absolute hidden lg:block h-[0.5px] w-[140px] bottom-[125px] left-1/2 -translate-x-1/2 bg-white opacity-60"
+          class="absolute hidden xl:block h-[0.5px] w-[140px] bottom-[122px] left-1/2 -translate-x-1/2 bg-white opacity-60"
         ></div>
         <button
           @click="onToggleModal()"
           :class="{
-            'lg:hover:text-day': dayNightStatus === 'Day',
-            'lg:hover:text-night': dayNightStatus === 'Night',
+            'xl:hover:text-day': dayNightStatus === 'Day',
+            'xl:hover:text-night': dayNightStatus === 'Night',
           }"
-          class="lg:absolute w-full lg:mt-0 mt-8 h-[56px] rounded-[20px] font-semibold lg:bottom-14 lg:font-semibold tracking-wide [background:linear-gradient(168.26deg,_rgba(255,_255,_255,_0.3),_rgba(255,_255,_255,_0.15))] shadow-[0px_20px_40px_rgba(0,_0,_0,_0.1)] [backdrop-filter:blur(20px)] border-solid border-gray lg:shadow-none lg:bg-none lg:backdrop-opacity-0 lg:blur-none lg:text-[14px] flex items-center justify-center lg:right-[50px] lg:left-[50px] lg:h-12 lg:w-[198px] border-[0.5px] lg:rounded-[12px] lg:border-white lg:hover:bg-white cursor-pointer transition"
+          class="w-full xl:mt-11 mt-8 h-[56px] rounded-[20px] font-semibold xl:bottom-14 xl:font-semibold tracking-wide [background:linear-gradient(168.26deg,_rgba(255,_255,_255,_0.3),_rgba(255,_255,_255,_0.15))] shadow-[0px_20px_40px_rgba(0,_0,_0,_0.1)] [backdrop-filter:blur(20px)] border-solid border-gray xl:shadow-none xl:bg-none xl:backdrop-opacity-0 xl:blur-none xl:text-[14px] flex items-center justify-center xl:h-12 border-[0.5px] xl:rounded-[12px] xl:border-white xl:hover:bg-white cursor-pointer transition"
         >
           HOW TO FIX
         </button>
@@ -275,7 +275,7 @@
       class="fixed z-10 top-0 left-0 w-full h-full bg-[rgba(0,0,0,0.5)] modal"
     >
       <div
-        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[353px] px-7 pt-14 pb-8 lg:px-[60px] lg:py-[60px] overflow-hidden rounded-[20px] lg:rounded-[24px] bg-[#F8F8F8] text-[#1F1F1F] lg:h-[500px] lg:w-[750px]"
+        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[353px] px-7 pt-14 pb-8 xl:px-[60px] xl:py-[60px] overflow-hidden rounded-[20px] xl:rounded-[24px] bg-[#F8F8F8] text-[#1F1F1F] xl:h-[500px] xl:w-[750px]"
       >
         <img
           @click="onToggleModal()"
@@ -285,8 +285,8 @@
         />
         <div class="">
           <h2 class="text-center font-bold text-[24px]">SOLUTIONS</h2>
-          <div class="mt-3 lg:mt-5 overflow-y-scroll h-[335px] modal">
-            <p class="text-justify lg:pr-4 flex flex-wrap justify-between">
+          <div class="mt-3 xl:mt-5 overflow-y-scroll h-[335px] modal">
+            <p class="text-justify xl:pr-4 flex flex-wrap justify-between">
               <span
                 v-if="fixData && fixData.detail"
                 v-html="fixData.detail"
@@ -302,7 +302,7 @@
                 class="my-2 w-full"
               />
               <iframe
-                class="my-2 w-full lg:w-[605px] lg:h-[315px]"
+                class="my-2 w-full xl:w-[605px] xl:h-[315px]"
                 v-if="fixData && fixData.video"
                 :src="fixData.video"
                 title="YouTube video player"
@@ -318,12 +318,12 @@
     <div
       v-if="!isOpenChatBox"
       @click="onToggleChat()"
-      class="absolute cursor-pointer bottom-6 right-6 lg:bottom-10 lg:right-14 animate-bounce hover:animate-none"
+      class="absolute cursor-pointer bottom-6 right-6 xl:bottom-6 xl:right-14 animate-bounce hover:animate-none"
     >
       <img
         src="../assets/images/home/chatbot-logo.svg"
         alt=""
-        class="w-[74px] lg:w-24 hover:lg:w-[100px] transition-width ease-in-out duration-500"
+        class="w-[74px] xl:w-24 hover:xl:w-[100px] transition-width ease-in-out duration-500"
       />
     </div>
     <chat-box v-if="isOpenChatBox" :isOpenChatBox="isOpenChatBox" />
@@ -774,7 +774,7 @@ export default {
   );
 }
 
-@media only screen and (max-width: 1023px) {
+@media only screen and (max-width: 1279px) {
   .swiper-pagination {
     bottom: 16px !important;
   }
