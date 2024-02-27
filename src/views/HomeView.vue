@@ -517,7 +517,7 @@ export default {
         }
       } else {
         fixData.value = {
-          detail: "No datas",
+          detail: "No prediction data available",
           solution: null,
           image: null,
           video: null,
