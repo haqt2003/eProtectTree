@@ -14,7 +14,7 @@
         class="w-full h-auto text-center max-w-[620px] text-[12px] lg:text-[16px] px-5 lg:px-[72px] rounded-2xl [background:linear-gradient(168.26deg,_rgba(255,_255,_255,_0.3),_rgba(255,_255,_255,_0.15))] shadow-[0px_20px_40px_rgba(0,_0,_0,_0.1)] [backdrop-filter:blur(20px)] border-[2px] border-solid border-white"
       >
         <h1 class="font-bold text-[36px] lg:text-[40px] mt-8 lg:mt-[60px]">
-          Sign In
+          Đăng nhập
         </h1>
         <label
           for="email"
@@ -36,7 +36,7 @@
           <span
             v-if="!isShowEmail && !email"
             class="font-medium text-[14px] lg:text-[16px] absolute top-1/2 left-5 -translate-y-1/2"
-            >Email ID</span
+            >Email</span
           >
         </label>
         <label
@@ -72,7 +72,7 @@
           <span
             v-if="!isShowPassword && !password"
             class="font-medium text-[14px] lg:text-[16px] absolute top-1/2 left-5 -translate-y-1/2"
-            >Password</span
+            >Mật khẩu</span
           >
         </label>
         <div class="mt-4 lg:mt-6 flex justify-between items-center font-normal">
@@ -90,25 +90,25 @@
               src="../assets/images/login/checked.svg"
               alt=""
             />
-            <span class="ml-2">Remember me</span>
+            <span class="ml-2">Nhớ mật khẩu</span>
           </div>
           <div @click="onResetPassword()" class="cursor-pointer">
-            <span id="forgotPassword">Forgot Password?</span>
+            <span id="forgotPassword">Quên mật khẩu?</span>
           </div>
         </div>
         <button
           @submit="onSignIn()"
           class="w-[200px] lg:text-[20px] lg:w-full mt-7 font-bold text-[16px] hover:bg-slate-100 rounded-[50px] bg-white text-black h-[50px] lg:h-[68px]"
         >
-          <span v-if="!isPending">Sign In</span>
-          <span v-if="isPending">Sign In...</span>
+          <span v-if="!isPending">Đăng nhập</span>
+          <span v-if="isPending">Đăng nhập...</span>
         </button>
         <div class="mt-5 mb-9">
           <span class="font-normal"
-            >Don't have an account?
+            >Bạn chưa có tài khoản?
             <span class="font-bold"
               ><router-link :to="{ name: 'SignUp', params: {} }"
-                >Sign up</router-link
+                >Đăng ký</router-link
               ></span
             ></span
           >

@@ -190,7 +190,7 @@
         >
           <img
             :src="`${logIconUrl}`"
-            @click="scrollToStart()"
+            @click="scrollToEnd()"
             alt=""
             class="w-7 cursor-pointer"
           />
@@ -218,6 +218,20 @@
           <div
             class="absolute w-[0.5px] left-[88px] h-[50px] opacity-60 bg-white"
           ></div>
+          <img
+            v-if="!isAtStart"
+            @click="scrollToStart()"
+            src="../assets/images/home/go-to-end.svg"
+            alt=""
+            class="absolute left-[100px] rotate-180 w-8 opacity-15 hover:opacity-100 cursor-pointer transition"
+          />
+          <img
+            v-if="!isAtEnd && isAtStart"
+            @click="scrollToEnd()"
+            src="../assets/images/home/go-to-end.svg"
+            alt=""
+            class="absolute right-10 w-8 opacity-15 hover:opacity-100 cursor-pointer transition"
+          />
         </div>
       </div>
       <div
@@ -229,7 +243,7 @@
           <div
             v-for="(disease, index) in diseases"
             :key="index"
-            :class="{ 'mt-5': index !== 0 }"
+            :class="{ 'mt-5': index !== 0, 'shaking-1': disease.percent > 80 }"
             class=""
           >
             <span class="xl:font-semibold">{{ disease.name }}</span>
@@ -266,7 +280,7 @@
           }"
           class="w-full xl:mt-11 mt-8 h-[56px] rounded-[20px] font-semibold xl:bottom-14 xl:font-semibold tracking-wide [background:linear-gradient(168.26deg,_rgba(255,_255,_255,_0.3),_rgba(255,_255,_255,_0.15))] shadow-[0px_20px_40px_rgba(0,_0,_0,_0.1)] [backdrop-filter:blur(20px)] border-solid border-gray xl:shadow-none xl:bg-none xl:backdrop-opacity-0 xl:blur-none xl:text-[14px] flex items-center justify-center xl:h-12 border-[0.5px] xl:rounded-[12px] xl:border-white xl:hover:bg-white cursor-pointer transition"
         >
-          HOW TO FIX
+          XEM CÁCH KHẮC PHỤC
         </button>
       </div>
     </div>
@@ -284,7 +298,7 @@
           class="absolute top-6 right-6 w-7 cursor-pointer"
         />
         <div class="">
-          <h2 class="text-center font-bold text-[24px]">SOLUTIONS</h2>
+          <h2 class="text-center font-bold text-[24px]">CÁCH KHẮC PHỤC</h2>
           <div class="mt-3 xl:mt-5 overflow-y-scroll h-[335px] modal">
             <p class="text-justify xl:pr-4 flex flex-wrap justify-between">
               <span
@@ -375,6 +389,9 @@ export default {
     const startX = ref(0);
     const scrollLeft = ref(0);
     const scrollableDiv = ref(null);
+    const isAtStart = ref(true);
+    const isAtEnd = ref(false);
+
     const router = useRouter();
 
     const diseases = ref([
@@ -390,10 +407,10 @@ export default {
     const URL = "https://teachablemachine.withgoogle.com/models/YJqqRrpNu/";
 
     const videos = reactive([
+      require("@/assets/images/home/pic2.jpeg"),
+      require("@/assets/images/home/pic1.jpg"),
       "http://35.198.245.86/camera1/",
       "http://35.198.245.86/camera2/",
-      require("@/assets/images/home/pic2.jpeg"),
-      require("@/assets/images/home/pic3.jpg"),
     ]);
 
     async function initSwiper() {
@@ -418,6 +435,7 @@ export default {
         const metadataURL = URL + "metadata.json";
         model = await window.tmImage.load(modelURL, metadataURL);
         maxPredictions = model.getTotalClasses();
+        setInterval(predict, 1000);
       } catch (error) {
         console.log(error);
       }
@@ -517,7 +535,7 @@ export default {
         }
       } else {
         fixData.value = {
-          detail: "No prediction data available",
+          detail: "Không có dữ liệu dự đoán.",
           solution: null,
           image: null,
           video: null,
@@ -568,20 +586,24 @@ export default {
     }
 
     const handleMouseDown = (event) => {
+      updateScrollState();
       isDown.value = true;
       startX.value = event.pageX - scrollableDiv.value.offsetLeft;
       scrollLeft.value = scrollableDiv.value.scrollLeft;
     };
 
     const handleMouseLeave = () => {
+      updateScrollState();
       isDown.value = false;
     };
 
     const handleMouseUp = () => {
+      updateScrollState();
       isDown.value = false;
     };
 
     const handleMouseMove = (event) => {
+      updateScrollState();
       if (!isDown.value) return;
       event.preventDefault();
       const x = event.pageX - scrollableDiv.value.offsetLeft;
@@ -589,8 +611,29 @@ export default {
       scrollableDiv.value.scrollLeft = scrollLeft.value - walk;
     };
 
+    const updateScrollState = () => {
+      const scrollableWidth =
+        scrollableDiv.value.scrollWidth - scrollableDiv.value.clientWidth;
+      if (scrollableDiv.value.scrollLeft === 0) {
+        isAtStart.value = true;
+        isAtEnd.value = false;
+      } else if (scrollableDiv.value.scrollLeft === scrollableWidth) {
+        isAtStart.value = false;
+        isAtEnd.value = true;
+      } else {
+        isAtStart.value = false;
+        isAtEnd.value = false;
+      }
+    };
+
     const scrollToStart = () => {
+      updateScrollState();
       smoothScroll(scrollableDiv.value, 0, 500);
+    };
+
+    const scrollToEnd = () => {
+      updateScrollState();
+      smoothScroll(scrollableDiv.value, scrollableDiv.value.scrollWidth, 500);
     };
 
     const smoothScroll = (element, to, duration) => {
@@ -649,12 +692,11 @@ export default {
     }
 
     onMounted(() => {
-      updateRealTime();
-      initSwiper();
       initPredict();
-      setInterval(getSensor, 100);
-      setInterval(predict, 1000);
-      setInterval(updateRealTime, 60000);
+      setInterval(getSensor, 1000);
+      initSwiper();
+      updateRealTime();
+      setInterval(updateRealTime, 1000);
     });
 
     return {
@@ -666,11 +708,14 @@ export default {
       fixPath,
       logData,
       logIconUrl,
+      isAtStart,
+      isAtEnd,
       isOpenChatBox,
       isOpenModal,
       path,
       videos,
       scrollableDiv,
+      scrollLeft,
       temp,
       mois,
       soil,
@@ -696,6 +741,7 @@ export default {
       onCo2Details,
       onPhDetails,
       scrollToStart,
+      scrollToEnd,
       updateBg,
     };
   },
@@ -802,5 +848,26 @@ export default {
   .swiper-button-next {
     display: none;
   }
+}
+@keyframes shake {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-3px);
+  }
+  50% {
+    transform: translateX(3px);
+  }
+  75% {
+    transform: translateX(-3px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.shaking-1 {
+  animation: shake 0.5s;
 }
 </style>

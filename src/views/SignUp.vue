@@ -14,7 +14,7 @@
         class="w-full h-auto text-center max-w-[620px] text-[12px] lg:text-[16px] px-5 lg:px-[72px] rounded-2xl [background:linear-gradient(168.26deg,_rgba(255,_255,_255,_0.3),_rgba(255,_255,_255,_0.15))] shadow-[0px_20px_40px_rgba(0,_0,_0,_0.1)] [backdrop-filter:blur(20px)] border-[2px] border-solid border-white"
       >
         <h1 class="font-bold text-[36px] lg:text-[40px] mt-8 lg:mt-[60px]">
-          Sign Up
+          Đăng ký
         </h1>
         <label
           for="email"
@@ -36,7 +36,7 @@
           <span
             v-if="!isShowEmail && !email"
             class="font-medium text-[14px] lg:text-[16px] absolute top-1/2 left-5 -translate-y-1/2"
-            >Email ID</span
+            >Email</span
           >
         </label>
         <label
@@ -72,7 +72,7 @@
           <span
             v-if="!isShowPassword && !password"
             class="font-medium text-[14px] lg:text-[16px] absolute top-1/2 left-5 -translate-y-1/2"
-            >Password</span
+            >Mật khẩu</span
           >
         </label>
         <label
@@ -91,22 +91,22 @@
           <span
             v-if="!isShowConfirmPassword && !confirmPassword"
             class="font-medium text-[14px] lg:text-[16px] absolute top-1/2 left-5 -translate-y-1/2"
-            >Confirm password
+            >Nhập lại mật khẩu
           </span>
         </label>
         <button
           @submit="onSignUp()"
           class="w-[200px] lg:text-[20px] lg:w-full mt-7 font-bold text-[16px] hover:bg-slate-100 rounded-[50px] bg-white text-black h-[50px] lg:h-[68px]"
         >
-          <span v-if="!isPending">Sign Up</span>
-          <span v-if="isPending">Sign Up...</span>
+          <span v-if="!isPending">Đăng ký</span>
+          <span v-if="isPending">Đăng ký...</span>
         </button>
         <div class="mt-5 mb-9">
           <span class="font-normal"
-            >I really have an account.
+            >Tôi đã có tài khoản.
             <span class="font-bold"
               ><router-link :to="{ name: 'SignIn', params: {} }"
-                >Sign in</router-link
+                >Đăng nhập</router-link
               ></span
             ></span
           >
@@ -215,7 +215,7 @@ export default {
 
     onMounted(() => {
       updateRealTime();
-      setInterval(updateRealTime, 60000);
+      // setInterval(updateRealTime, 60000);
     });
 
     return {

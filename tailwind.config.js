@@ -6,7 +6,7 @@ module.exports = {
       colors: {
         black: "#000",
         gray: "rgba(255, 255, 255, 0.05)",
-        day: "#818451",
+        day: "#B2AB6D",
         night: "#4B4B4B",
       },
       animation: { "animate-bounce": "bounce 3s linear infinite" },

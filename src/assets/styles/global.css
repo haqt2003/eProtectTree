@@ -21,11 +21,11 @@
   font-style: normal;
 }
 
-@media screen and (max-width: 1279px) {
+/* @media screen and (max-width: 1279px) {
   .modal::-webkit-scrollbar {
     display: none;
   }
-}
+} */
 
 /* width */
 .modal::-webkit-scrollbar {
