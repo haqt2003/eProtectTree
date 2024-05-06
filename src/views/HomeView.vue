@@ -410,8 +410,8 @@ export default {
     const URL = "https://teachablemachine.withgoogle.com/models/NC6u90OFd/";
 
     const videos = reactive([
-      require("@/assets/images/home/pic2.jpeg"),
-      require("@/assets/images/home/pic1.jpg"),
+      require("@/assets/images/home/domla.jpeg"),
+      require("@/assets/images/home/thanthu.jpg"),
       "http://35.198.245.86/camera1/",
       "http://35.198.245.86/camera2/",
     ]);
