@@ -9,7 +9,7 @@
       class="mx-auto relative flex-wrap mt-8 xl:mt-0 w-full max-w-[1680px] lg:max-h-[700px] px-5 xl:px-[120px] xl:pt-[50px] xl:pb-[50px] xl:h-full flex xl:justify-between items-center"
     >
       <div
-        class="information-tab mt-8 xl:mt-0 xl:relative order-2 xl:order-1 xl:px-[50px] xl:py-12 w-full h-[180px] xl:w-[23%] xl:h-full xl:rounded-2xl xl:[background:linear-gradient(168.26deg,_rgba(255,_255,_255,_0.3),_rgba(255,_255,_255,_0.15))] xl:shadow-[0px_20px_40px_rgba(0,_0,_0,_0.1)] xl:[backdrop-filter:blur(20px)] xl:border-[1px] xl:border-solid xl:border-gray"
+        class="information-tab mt-8 xl:mt-0 xl:relative order-2 xl:order-1 xl:px-[45px] xl:py-12 w-full h-[180px] xl:w-[23%] xl:h-full xl:rounded-2xl xl:[background:linear-gradient(168.26deg,_rgba(255,_255,_255,_0.3),_rgba(255,_255,_255,_0.15))] xl:shadow-[0px_20px_40px_rgba(0,_0,_0,_0.1)] xl:[backdrop-filter:blur(20px)] xl:border-[1px] xl:border-solid xl:border-gray"
       >
         <div
           class="rounded-2xl relative px-5 py-5 xl:px-0 xl:py-0 [background:linear-gradient(168.26deg,_rgba(255,_255,_255,_0.3),_rgba(255,_255,_255,_0.15))] shadow-[0px_20px_40px_rgba(0,_0,_0,_0.1)] [backdrop-filter:blur(20px)] border-[1px] border-solid border-gray xl:rounded-none xl:shadow-none xl:bg-none xl:border-none xl:backdrop-opacity-0 xl:blur-none xl:border-0"
@@ -19,7 +19,7 @@
               <img
                 src="../assets/images/home/rose.svg"
                 alt=""
-                class="w-[20px] xl:w-[75px]"
+                class="w-[20px] xl:w-[65px]"
               />
               <span class="font-semibold text-[14px] ml-3 block xl:hidden">{{
                 detailsData ? detailsData.Name : ""
@@ -240,15 +240,19 @@
         <div
           class="px-5 pt-6 pb-8 xl:px-0 xl:py-0 rounded-2xl [background:linear-gradient(168.26deg,_rgba(255,_255,_255,_0.3),_rgba(255,_255,_255,_0.15))] shadow-[0px_20px_40px_rgba(0,_0,_0,_0.1)] [backdrop-filter:blur(20px)] border-[1px] border-solid border-gray xl:rounded-none xl:shadow-none xl:bg-none xl:border-none xl:backdrop-opacity-0 xl:blur-none xl:border-0"
         >
+          <div class="font-bold text-[24px] mb-3 xl:mb-4">Dự đoán bệnh</div>
           <div
             v-for="(disease, index) in diseases"
             :key="index"
-            :class="{ 'mt-5': index !== 0, 'shaking-1': disease.percent > 80 }"
+            :class="{
+              'mt-5 xl:mt-6': index !== 0,
+              'shaking-1': disease.percent > 80,
+            }"
             class=""
           >
             <span class="xl:font-semibold">{{ disease.name }}</span>
             <div
-              class="w-full relative h-9 mt-2 border-[2px] border-white xl:mt-[6px] rounded-[10px] overflow-hidden"
+              class="w-full relative h-9 mt-2 border-[2px] border-white xl:mt-[10px] rounded-[10px] overflow-hidden"
             >
               <div
                 :style="{
@@ -270,7 +274,7 @@
           </div>
         </div>
         <div
-          class="absolute hidden xl:block h-[0.5px] w-[140px] bottom-[122px] left-1/2 -translate-x-1/2 bg-white opacity-60"
+          class="absolute hidden xl:block h-[0.5px] w-[140px] bottom-[120px] left-1/2 -translate-x-1/2 bg-white opacity-60"
         ></div>
         <button
           @click="onToggleModal()"
@@ -278,7 +282,7 @@
             'xl:hover:text-day': dayNightStatus === 'Day',
             'xl:hover:text-night': dayNightStatus === 'Night',
           }"
-          class="w-full xl:mt-11 mt-8 h-[56px] rounded-[20px] font-semibold xl:bottom-14 xl:font-semibold tracking-wide [background:linear-gradient(168.26deg,_rgba(255,_255,_255,_0.3),_rgba(255,_255,_255,_0.15))] shadow-[0px_20px_40px_rgba(0,_0,_0,_0.1)] [backdrop-filter:blur(20px)] border-solid border-gray xl:shadow-none xl:bg-none xl:backdrop-opacity-0 xl:blur-none xl:text-[14px] flex items-center justify-center xl:h-12 border-[0.5px] xl:rounded-[12px] xl:border-white xl:hover:bg-white cursor-pointer transition"
+          class="w-full xl:mt-14 mt-8 h-[56px] rounded-[20px] font-semibold xl:bottom-14 xl:font-semibold tracking-wide [background:linear-gradient(168.26deg,_rgba(255,_255,_255,_0.3),_rgba(255,_255,_255,_0.15))] shadow-[0px_20px_40px_rgba(0,_0,_0,_0.1)] [backdrop-filter:blur(20px)] border-solid border-gray xl:shadow-none xl:bg-none xl:backdrop-opacity-0 xl:blur-none xl:text-[14px] flex items-center justify-center xl:h-12 border-[0.5px] xl:rounded-[12px] xl:border-white xl:hover:bg-white cursor-pointer transition"
         >
           XEM CÁCH KHẮC PHỤC
         </button>
@@ -300,7 +304,7 @@
         <div class="">
           <h2 class="text-center font-bold text-[24px]">CÁCH KHẮC PHỤC</h2>
           <div class="mt-3 xl:mt-5 overflow-y-scroll h-[335px] modal">
-            <p class="text-justify xl:pr-4 flex flex-wrap justify-between">
+            <p class="text-justify pr-4 flex flex-wrap justify-between">
               <span
                 v-if="fixData && fixData.detail"
                 v-html="fixData.detail"
@@ -395,16 +399,15 @@ export default {
     const router = useRouter();
 
     const diseases = ref([
-      { name: "Đốm lá", percent: "0" },
-      { name: "Thán thư", percent: "0" },
-      { name: "Thối đọt", percent: "0" },
-      { name: "Héo khô đầu lá", percent: "0" },
-      { name: "None", percent: "0" },
+      { name: "Hoa Hồng - Đốm Lá", percent: "0" },
+      { name: "Hoa Hồng - Thán Thư", percent: "0" },
+      { name: "Hoa Hồng - Gỉ Sét", percent: "0" },
+      { name: "Hoa Hồng - Ăn Lá", percent: "0" },
     ]);
     let model;
     let maxPredictions;
 
-    const URL = "https://teachablemachine.withgoogle.com/models/YJqqRrpNu/";
+    const URL = "https://teachablemachine.withgoogle.com/models/NC6u90OFd/";
 
     const videos = reactive([
       require("@/assets/images/home/pic2.jpeg"),
@@ -520,7 +523,7 @@ export default {
       const maxPercentDisease = findMaxPercent();
       if (maxPercentDisease.name === "Hoa Hồng - Đốm Lá") {
         try {
-          fixPath.value = "fix/Rose/PhanTrang";
+          fixPath.value = "fix/Rose/DomLa";
           fixData.value = await readFix(fixPath.value);
         } catch (error) {
           console.log(error);
@@ -529,7 +532,20 @@ export default {
         try {
           fixPath.value = "fix/Rose/ThanThu";
           fixData.value = await readFix(fixPath.value);
-          console.log(fixData.value);
+        } catch (error) {
+          console.log(error);
+        }
+      } else if (maxPercentDisease.name === "Hoa Hồng - Gỉ sét") {
+        try {
+          fixPath.value = "fix/Rose/GiSet";
+          fixData.value = await readFix(fixPath.value);
+        } catch (error) {
+          console.log(error);
+        }
+      } else if (maxPercentDisease.name === "Hoa hồng - Ăn lá") {
+        try {
+          fixPath.value = "fix/Rose/AnLa";
+          fixData.value = await readFix(fixPath.value);
         } catch (error) {
           console.log(error);
         }
