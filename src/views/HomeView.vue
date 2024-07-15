@@ -142,6 +142,7 @@
                     class="h-[242px] xl:h-[430px] w-full rounded-2xl relative"
                   >
                     <img
+                      crossorigin
                       :src="video"
                       class="w-full h-full object-cover rounded-2xl"
                     />
@@ -240,7 +241,7 @@
         <div
           class="px-5 pt-6 pb-8 xl:px-0 xl:py-0 rounded-2xl [background:linear-gradient(168.26deg,_rgba(255,_255,_255,_0.3),_rgba(255,_255,_255,_0.15))] shadow-[0px_20px_40px_rgba(0,_0,_0,_0.1)] [backdrop-filter:blur(20px)] border-[1px] border-solid border-gray xl:rounded-none xl:shadow-none xl:bg-none xl:border-none xl:backdrop-opacity-0 xl:blur-none xl:border-0"
         >
-          <div class="font-bold text-[24px] mb-3 xl:mb-4">Dự đoán bệnh</div>
+          <div class="font-bold text-[24px] mb-3 xl:mb-4">DỰ ĐOÁN BỆNH</div>
           <div
             v-for="(disease, index) in diseases"
             :key="index"

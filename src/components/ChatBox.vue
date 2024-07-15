@@ -12,7 +12,7 @@
         @click="onToggleChat()"
       />
       <span class="font-semibold max-w-[70%] truncate lg:hidden"
-        >Viện nghiên cứu nông sản PTIT
+        >eProtectTree
       </span>
       <img src="../assets/images/chat/user.svg" alt="" class="lg:hidden" />
       <div class="items-center w-[92%] hidden lg:flex">
