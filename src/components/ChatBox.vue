@@ -18,7 +18,7 @@
       <div class="items-center w-[92%] hidden lg:flex">
         <img src="../assets/images/chat/user.svg" alt="" />
         <span class="ml-4 font-semibold max-w-[70%] truncate"
-          >Viện nghiên cứu nông sản PTIT</span
+          >eProtectTree</span
         >
       </div>
       <img
